@@ -1,1 +1,6 @@
 .env
+.env.build
+.gitignore
+node_modules
+ormconfig.json
+.now
