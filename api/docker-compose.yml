@@ -6,10 +6,10 @@ services:
     # extensions, it's probably time to create a purpose-built image with all
     # necessary extensions. sorry, and thanks for adding support for them!
     image: "mdillon/postgis:9.6"
-    container_name: "type-db"
+    container_name: "typefeel-db"
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "test"
-      POSTGRES_PASSWORD: "test"
-      POSTGRES_DB: "test"
+      POSTGRES_USER: "typefeel"
+      POSTGRES_PASSWORD: "typefeel"
+      POSTGRES_DB: "type-db"

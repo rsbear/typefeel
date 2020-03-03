@@ -21,7 +21,8 @@
     "serve": "NODE_ENV=production node ./public/api/index.js",
     "cleanbuild": "rm -rf public",
     "deploy": "yarn cleanbuild && yarn build && git add . && git commit -m 'deploy' && git push heroku master",
-    "watch-ts": "tsc -w"
+    "watch-ts": "tsc -w",
+    "seed": "ts-node-dev src/data/index.ts"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^1.0.0",

@@ -32,7 +32,7 @@ export class Edition extends BaseEntity {
   cases: string[]
 
   @Field(() => [String], { nullable: true })
-  @Column("simple-array")
+  @Column("simple-array", { nullable: true })
   colors: string[]
 
   @Field(() => [String], { nullable: true })

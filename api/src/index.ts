@@ -23,11 +23,11 @@ import { JoinKeyboardResolver } from "./resolvers/JoinKeyboardResolver";
 import { JoinKeysetResolver } from "./resolvers/JoinKeysetResolver";
 import { PostResolver } from "./resolvers/PostResolver";
 import { FollowResolvers } from "./resolvers/FollowResolvers";
+import { seeder } from "./data";
 
-const origin =
-  process.env.NODE_ENV !== "production"
-    ? "http://localhost:3000"
-    : "https://typefeel.com";
+
+const prod = process.env.NODE_ENV === 'production'
+const origin = !prod ? "http://localhost:3000" : "https://typefeel.com";
 
 (async () => {
   const app = express();
@@ -67,25 +67,18 @@ const origin =
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
+
   const dbConfig: ConnectionOptions = {
     type: "postgres",
     entities: values(entities),
-    // ...(process.env.DB_URL
-    //   ? {
-    //     url: process.env.DB_URL,
-    //   }
-    //   : {
-
-    host: process.env.TYPEORM_HOST,
-    username: process.env.TYPEORM_USERNAME,
-    password: process.env.TYPEORM_PASSWORD,
-    database: process.env.TYPEORM_DATABASE,
-    port: 25060 || 5432,
+    host: !prod ? 'localhost' : process.env.TYPEORM_HOST,
+    username: !prod ? 'typefeel' : process.env.TYPEORM_USERNAME,
+    password: !prod ? 'typefeel' : process.env.TYPEORM_PASSWORD,
+    database: !prod ? 'type-db' : process.env.TYPEORM_DATABASE,
+    port: !prod ? 5432 : 25060 || 5432,
     extra: {
-      ssl: true
+      ssl: !prod ? false : true
     },
-
-    // }),
     synchronize: true,
     logging: false,
     logger: "file"
@@ -94,6 +87,11 @@ const origin =
   await createConnection(dbConfig).catch((error: any) => {
     console.log(error);
   });
+
+  const users = await User.find()
+  if (users.length === 0) {
+    await seeder()
+  }
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
@@ -117,13 +115,11 @@ const origin =
   apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(
-    { port: process.env.NODE_ENV !== "production" ? 4000 : process.env.PORT },
+    { port: !prod ? 4000 : process.env.PORT },
     () => {
       console.log("🚀 ------ UP UP AND AWAY");
       console.log(
-        process.env.NODE_ENV !== "production"
-          ? "In development mode"
-          : "Production deployment"
+        !prod ? "In development mode" : "Production deployment"
       );
     }
   );
