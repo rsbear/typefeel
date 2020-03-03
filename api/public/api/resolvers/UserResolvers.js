@@ -67,7 +67,6 @@ let UserResolvers = class UserResolvers {
         if (!authorization) {
             return null;
         }
-        console.log(authorization);
         try {
             const token = authorization.split(" ")[1];
             const payload = jsonwebtoken_1.verify(token, process.env.ACCESS_TOKEN_SECRET);

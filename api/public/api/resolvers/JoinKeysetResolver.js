@@ -35,6 +35,7 @@ let JoinKeysetResolver = class JoinKeysetResolver {
             try {
                 const keyset = yield Keyset_1.Keyset.findOne({ id });
                 const user = yield User_1.User.findOne(payload.userId);
+                console.log(data);
                 yield JoinKeyset_1.JoinKeyset.insert(Object.assign(Object.assign({}, data), { keysetId: id, keyset,
                     user }));
                 return true;

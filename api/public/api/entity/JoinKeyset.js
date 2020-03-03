@@ -25,7 +25,7 @@ let JoinKeyset = class JoinKeyset extends typeorm_1.BaseEntity {
 };
 __decorate([
     type_graphql_1.Field(),
-    typeorm_1.PrimaryColumn("varchar", { default: `${uniqid_1.default("join_")}` }),
+    typeorm_1.PrimaryColumn({ default: `${uniqid_1.default("join_")}` }),
     __metadata("design:type", String)
 ], JoinKeyset.prototype, "id", void 0);
 __decorate([

@@ -51,6 +51,25 @@ let KeyboardResolvers = class KeyboardResolvers {
             relations: ['editions', 'maker', 'posts', 'posts.user', 'joins'],
         });
     }
+    keyboardPosts(shortId, limit) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let keyboard = yield Keyboard_1.Keyboard.findOne({
+                    where: { shortId },
+                    relations: ['posts', 'posts.user'],
+                });
+                if (!keyboard)
+                    throw Error("Could not find keyboard");
+                const { posts } = keyboard, rest = __rest(keyboard, ["posts"]);
+                const limitedPosts = keyboard.posts.slice(0, limit);
+                return Object.assign(Object.assign({}, rest), { posts: limitedPosts });
+            }
+            catch (err) {
+                console.log(err);
+                throw Error("failed in keyboard posts catch block");
+            }
+        });
+    }
     sortKeyboards(where) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -148,6 +167,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], KeyboardResolvers.prototype, "keyboard", null);
+__decorate([
+    type_graphql_1.Query(() => Keyboard_1.Keyboard),
+    __param(0, type_graphql_1.Arg("shortId")), __param(1, type_graphql_1.Arg("limit")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], KeyboardResolvers.prototype, "keyboardPosts", null);
 __decorate([
     type_graphql_1.Query(() => [Keyboard_1.Keyboard]),
     __param(0, type_graphql_1.Arg("where")),
