@@ -1,0 +1,10 @@
+query keyboards {
+  keyboards {
+    id
+    images600
+    mount
+    shortId
+    size
+    name
+  }
+}

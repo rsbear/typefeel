@@ -1,0 +1,3 @@
+mutation updateKeyset($id: String!, $data: KeysetInput!) {
+  updateKeyset(id: $id, data: $data)
+}

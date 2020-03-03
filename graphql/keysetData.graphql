@@ -1,0 +1,45 @@
+query KeysetData($shortId: String!) {
+  keyset(shortId: $shortId) {
+    colors {
+      id
+      hex
+      ral
+    }
+    created
+    details
+    id
+    images1500
+    kits {
+      id
+      kit
+      name
+      price
+      suggestedPrice
+    }
+    joins {
+      id
+      kits
+    }
+    maker {
+      username
+    }
+    name
+    profile
+    shortId
+    stem
+    interestCheck
+    groupBuy
+    groupBuySoon
+    market
+    closed
+    posts {
+      id
+      created
+      body
+      user {
+        id
+        username
+      }
+    }
+  }
+}

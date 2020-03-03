@@ -1,0 +1,3 @@
+mutation VoteKitDown($id: String!) {
+  voteKitDown(id: $id)
+}

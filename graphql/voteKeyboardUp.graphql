@@ -1,0 +1,3 @@
+mutation voteKeyboardUp($id: String!) {
+  voteKeyboardUp(id: $id)
+}

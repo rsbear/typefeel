@@ -1,0 +1,10 @@
+query sortKeyboards($where: SearchInput!) {
+  sortKeyboards(where: $where) {
+    id
+    shortId
+    name
+    mount
+    size
+    images600
+  }
+}

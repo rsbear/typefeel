@@ -1,0 +1,21 @@
+{
+  "presets": ["next/babel", "@emotion/babel-preset-css-prop"],
+  "plugins": [
+    "emotion",
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "components": "./components",
+          "generated": "./generated",
+          "graphql": "./graphql",
+          "hooks": "./hooks",
+          "interfaces": "./interfaces",
+          "lib": "./lib",
+          "styles": "./styles"
+        }
+      }
+    ]
+  ]
+}

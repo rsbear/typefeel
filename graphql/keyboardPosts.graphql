@@ -1,0 +1,16 @@
+query KeyboardPosts($shortId: String!) {
+  keyboard(shortId: $shortId) {
+    id
+    shortId
+    images600
+    name
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
+  }
+}

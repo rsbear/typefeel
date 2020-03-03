@@ -1,0 +1,9 @@
+query sortKeysets($where: SearchInput!) {
+  sortKeysets(where: $where) {
+    id
+    shortId
+    name
+    profile
+    images600
+  }
+}

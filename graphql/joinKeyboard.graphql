@@ -1,0 +1,3 @@
+mutation joinKeyboard($id: String!, $data: JoinKeyboardInput!) {
+  joinKeyboard(id: $id, data: $data)
+}

@@ -1,0 +1,6 @@
+mutation createFollow($id: String!) {
+  createFollow(id: $id) {
+    success
+    id
+  }
+}

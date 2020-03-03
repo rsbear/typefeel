@@ -1,0 +1,6 @@
+mutation generateSignupAuth($email: String!, $username: String!) {
+  generateSignupAuth(email: $email, username: $username) {
+    success
+    message
+  }
+}

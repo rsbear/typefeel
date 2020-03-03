@@ -1,0 +1,17 @@
+query keysetPosts($shortId: String!) {
+  keyset(shortId: $shortId) {
+    id
+    shortId
+    images600
+    name
+    profile
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
+  }
+}

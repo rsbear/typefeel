@@ -1,0 +1,26 @@
+query Me {
+  me {
+    id
+    username
+    email
+    keyboardjoins {
+      id
+      keyboardId
+    }
+    keysetjoins {
+      keysetId
+    }
+    follows {
+      id
+      productId
+      keyboard {
+        id
+        shortId
+      }
+      keyset {
+        id
+        shortId
+      }
+    }
+  }
+}

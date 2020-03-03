@@ -1,0 +1,3 @@
+mutation keyboardAnnouncement($id: String!, $announcement: String!) {
+  keyboardAnnouncement(id: $id, announcement: $announcement)
+}
