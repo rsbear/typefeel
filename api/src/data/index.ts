@@ -3,8 +3,8 @@ import "reflect-metadata";
 // import { ConnectionOptions, createConnection } from "typeorm";
 // import * as entities from "../entity";
 // import { values } from "lodash";
-import { boards } from './data'
-import { User, Keyboard } from "../entity";
+import { boards, sets } from './data'
+import { User, Keyboard, Keyset } from "../entity";
 
 
 // const prod = process.env.NODE_ENV === 'production'
@@ -42,7 +42,27 @@ async function createData() {
       closed: data.closed,
       maker: user
     }).save()
+  }
 
+  for (let data of sets) {
+    await Keyset.create({
+      name: data.name,
+      colors: data.colors,
+      details: data.details,
+      images600: data.images600,
+      images800: data.images800,
+      images1500: data.images1500,
+      imagesRaw: data.imagesRaw,
+      kits: data.kits,
+      profile: data.profile,
+      stem: data.stem,
+      interestCheck: data.interestCheck,
+      groupBuy: data.groupBuy,
+      groupBuySoon: data.groupBuySoon,
+      market: data.market,
+      closed: data.closed,
+      maker: user
+    }).save()
   }
 }
 

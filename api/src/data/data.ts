@@ -551,3 +551,282 @@ export const boards = [
     }],
   }
 ]
+
+export const sets = [
+  {
+    name: 'Honeyyy',
+    manufacturer: null,
+    profile: 'GMK',
+    stem: 'Cherry MX',
+    images600: [
+      'https://keyconomy-uploads.s3.amazonaws.com/nieAF_nq_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/jUcW8903T_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dRiE9I_Tu_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/GeK5Glxe_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3BbojdQ2Y_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/-LYUTMBC4_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dXwjDueTc_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/2dmhlQdl_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/6PqGaAtrc_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/QKq7vB0wE_600.jpeg'
+    ],
+    images800: [
+      'https://keyconomy-uploads.s3.amazonaws.com/nieAF_nq_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/jUcW8903T_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dRiE9I_Tu_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/GeK5Glxe_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3BbojdQ2Y_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/-LYUTMBC4_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dXwjDueTc_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/2dmhlQdl_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/6PqGaAtrc_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/QKq7vB0wE_800.jpeg'
+    ],
+    images1500: [
+      'https://keyconomy-uploads.s3.amazonaws.com/nieAF_nq_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/jUcW8903T_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dRiE9I_Tu_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/GeK5Glxe_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3BbojdQ2Y_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/-LYUTMBC4_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dXwjDueTc_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/2dmhlQdl_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/6PqGaAtrc_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/QKq7vB0wE_1500.jpeg'
+    ],
+    imagesRaw: [
+      'https://keyconomy-uploads.s3.amazonaws.com/nieAF_nq_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/jUcW8903T_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dRiE9I_Tu_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/GeK5Glxe_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3BbojdQ2Y_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/-LYUTMBC4_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/dXwjDueTc_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/2dmhlQdl_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/6PqGaAtrc_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/QKq7vB0wE_raw.jpeg'
+    ],
+    details: [],
+    interestCheck: true,
+    market: false,
+    groupBuy: false,
+    groupBuySoon: false,
+    closed: false,
+    kits: [
+      {
+        name: "Base",
+        kit: "Base",
+        price: 99
+      },
+      {
+        name: "40s",
+        kit: "40s",
+        price: 50
+      },
+      {
+        name: "Spacebars",
+        kit: "Spacebars",
+        price: 35
+      },
+      {
+        name: "Alt Alphas",
+        kit: "Alt Alphas",
+        price: 80
+      },
+      {
+        name: "Novelties",
+        kit: "Novelties",
+        price: 40
+      }
+    ],
+    "colors": [
+      {
+        hex: "FFC72C",
+        ral: "Pantone  123 c"
+      },
+      {
+        hex: "F8E59A",
+        ral: "Pantone 2001 c"
+      },
+      {
+        hex: "d3832b",
+        ral: "Pantone 7570 c"
+      }
+    ]
+  },
+  {
+    name: 'Dracula',
+    manufacturer: null,
+    profile: 'GMK',
+    stem: 'Cherry MX',
+    images600: [
+      'https://keyconomy-uploads.s3.amazonaws.com/02PNpQG3_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/rFyyvRLEU_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3sMNlVs0_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/8H6-R7jGr_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bmsZnUptV_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/SJ5Lk_pr_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/WnzRMXXeL_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bxIUKdXJr_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/BcyRzLJlc_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/NxX4u-2k_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YjX0AXB-E_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YqIUGxBSn_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/iwW41vHM_600.jpeg'
+    ],
+    images800: [
+      'https://keyconomy-uploads.s3.amazonaws.com/02PNpQG3_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/rFyyvRLEU_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3sMNlVs0_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/8H6-R7jGr_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bmsZnUptV_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/SJ5Lk_pr_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/WnzRMXXeL_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bxIUKdXJr_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/BcyRzLJlc_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/NxX4u-2k_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YjX0AXB-E_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YqIUGxBSn_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/iwW41vHM_800.jpeg'
+    ],
+    images1500: [
+      'https://keyconomy-uploads.s3.amazonaws.com/02PNpQG3_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/rFyyvRLEU_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3sMNlVs0_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/8H6-R7jGr_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bmsZnUptV_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/SJ5Lk_pr_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/WnzRMXXeL_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bxIUKdXJr_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/BcyRzLJlc_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/NxX4u-2k_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YjX0AXB-E_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YqIUGxBSn_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/iwW41vHM_1500.jpeg'
+    ],
+    imagesRaw: [
+      'https://keyconomy-uploads.s3.amazonaws.com/02PNpQG3_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/rFyyvRLEU_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/3sMNlVs0_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/8H6-R7jGr_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bmsZnUptV_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/SJ5Lk_pr_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/WnzRMXXeL_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/bxIUKdXJr_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/BcyRzLJlc_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/NxX4u-2k_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YjX0AXB-E_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/YqIUGxBSn_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/iwW41vHM_raw.jpeg'
+    ],
+    details: [],
+    interestCheck: false,
+    market: true,
+    groupBuy: false,
+    groupBuySoon: false,
+    closed: false,
+    kits: [
+      {
+        name: "Err! [Module]",
+        kit: "Extras",
+        price: 50
+      },
+      {
+        name: "Highlight [Module]",
+        kit: "Extras",
+        price: 37
+      },
+      {
+        name: "Localization [Module]",
+        kit: "Extras",
+        price: 65
+      },
+      {
+        name: "Nightmode [Module]",
+        kit: "Mods",
+        price: 60
+      },
+      {
+        name: "Command [Module]",
+        kit: "Extras",
+        price: 32
+      },
+      {
+        name: "Core [Module]",
+        kit: "Base",
+        price: 135
+      },
+      {
+        name: "Minify [Module]",
+        kit: "Extras",
+        price: 45
+      }
+    ],
+    colors: []
+  },
+  {
+    name: 'Olivia',
+    manufacturer: null,
+    profile: 'GMK',
+    stem: 'Cherry MX',
+    images600: [
+      'https://keyconomy-uploads.s3.amazonaws.com/WXMvVVDB_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/cpDV1Vjg_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/m8loWVABn_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/4f9MJ6vw1_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/JIy4G1is4_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/EQEdo7me_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/AMBzzSYmI_600.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/ytHU-2hun_600.jpeg'
+    ],
+    images800: [
+      'https://keyconomy-uploads.s3.amazonaws.com/WXMvVVDB_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/cpDV1Vjg_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/m8loWVABn_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/4f9MJ6vw1_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/JIy4G1is4_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/EQEdo7me_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/AMBzzSYmI_800.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/ytHU-2hun_800.jpeg'
+    ],
+    images1500: [
+      'https://keyconomy-uploads.s3.amazonaws.com/WXMvVVDB_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/cpDV1Vjg_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/m8loWVABn_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/4f9MJ6vw1_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/JIy4G1is4_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/EQEdo7me_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/AMBzzSYmI_1500.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/ytHU-2hun_1500.jpeg'
+    ],
+    imagesRaw: [
+      'https://keyconomy-uploads.s3.amazonaws.com/WXMvVVDB_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/cpDV1Vjg_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/m8loWVABn_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/4f9MJ6vw1_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/JIy4G1is4_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/EQEdo7me_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/AMBzzSYmI_raw.jpeg',
+      'https://keyconomy-uploads.s3.amazonaws.com/ytHU-2hun_raw.jpeg'
+    ],
+    details: [],
+    interestCheck: false,
+    market: true,
+    groupBuy: false,
+    groupBuySoon: false,
+    closed: false,
+    kits: [
+      {
+        name: "Base",
+        kit: "Base",
+        price: 135
+      },
+      {
+        name: "Extras",
+        kit: "Extras",
+        price: 40
+      }
+    ],
+    colors: []
+  }
+]

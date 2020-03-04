@@ -83,7 +83,6 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
 
 KeyboardPage.getInitialProps = async (context: any) => {
   const { shortId } = context.query;
-  console.log(shortId);
   return { shortId };
 };
 
