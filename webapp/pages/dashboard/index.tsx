@@ -14,7 +14,6 @@ import { useAppContext } from "hooks/useAppContext";
 
 const Dashboard: FC<any> = () => {
   const { authUser } = useAppContext();
-  useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
 

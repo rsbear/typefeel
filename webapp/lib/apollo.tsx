@@ -1,71 +1,169 @@
 import React from "react";
+import App from "next/app";
 import Head from "next/head";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { setContext } from "apollo-link-context";
-import fetch from "isomorphic-unfetch";
-import { TokenRefreshLink } from "apollo-link-token-refresh";
-import { createUploadLink } from "apollo-upload-client";
-import jwtDecode from "jwt-decode";
+import { ApolloProvider } from "@apollo/react-hooks";
+import createApolloClient from "./apolloClient";
 import { getAccessToken, setAccessToken } from "./accessToken";
-import { onError } from "apollo-link-error";
-import { ApolloLink } from "apollo-link";
 import cookie from "cookie";
 
+import { accessToken } from "lib/accessToken";
+import { NormalizedCacheObject } from "apollo-cache-inmemory";
+
+let globalApolloClient = null;
 const isServer = () => typeof window === "undefined";
 const refreshLink =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:4000/refresh_token"
     : "https://api.typefeel.com/refresh_token";
 
-const gqlLink =
-  process.env.NODE_ENV !== "production"
-    ? "http://localhost:4000/graphql"
-    : "https://api.typefeel.com/graphql";
+const tokenFetch = async ctx => {
+  const inAppContext = Boolean(ctx.ctx);
+  let serverAccessToken = "";
+  const context = inAppContext ? ctx.ctx : ctx;
+
+  if (ctx.ctx.req === undefined) {
+    return;
+  }
+  const cookies = cookie.parse(
+    context.req.headers.cookie ? context.req.headers.cookie : ""
+  );
+  if (cookies.typefeel_sesh) {
+    const response = await fetch(refreshLink, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        cookie: "typefeel_sesh=" + cookies.typefeel_sesh
+      }
+    });
+    const data = await response.json();
+    serverAccessToken = data.accessToken;
+    setAccessToken(data.accessToken);
+  }
+};
 
 /**
- * @param {Function|Class} PageComponent
- * @param {Object} [config]
- * @param {Boolean} [config.ssr=true]
+ * Installs the Apollo Client on NextPageContext
+ * or NextAppContext. Useful if you want to use apolloClient
+ * inside getStaticProps, getStaticPaths or getServerSideProps
+ * @param {NextPageContext | NextAppContext} ctx
  */
-export function withApollo(PageComponent: any, { ssr = true } = {}) {
+export const initOnContext = ctx => {
+  const inAppContext = Boolean(ctx.ctx);
+
+  // tokenFetch(ctx);
+
+  const apolloClient =
+    ctx.apolloClient ||
+    initApolloClient(
+      ctx.apolloState || {},
+      inAppContext ? ctx.ctx : ctx,
+      // tokenFetch
+      accessToken
+    );
+
+  apolloClient.toJSON = () => null;
+
+  // Add apolloClient to NextPageContext & NextAppContext.
+  // This allows us to consume the apolloClient inside our
+  // custom `getInitialProps({ apolloClient })`.
+  ctx.apolloClient = apolloClient;
+  if (inAppContext) {
+    ctx.ctx.apolloClient = apolloClient;
+  }
+
+  return ctx;
+};
+
+/**
+ * Always creates a new apollo client on the server
+ * Creates or reuses apollo client in the browser.
+ * @param  {NormalizedCacheObject} initialState
+ * @param  {NextPageContext} ctx
+ */
+const initApolloClient = (
+  initialState: NormalizedCacheObject,
+  ctx,
+  serverAccessToken?: string
+) => {
+  if (typeof window === "undefined") {
+    return createApolloClient(initialState, ctx, serverAccessToken);
+  }
+
+  if (!globalApolloClient) {
+    globalApolloClient = createApolloClient(
+      initialState,
+      ctx,
+      serverAccessToken
+    );
+  }
+
+  return globalApolloClient;
+};
+
+/**
+ * Creates a withApollo HOC
+ * that provides the apolloContext
+ * to a next.js Page or AppTree.
+ * @param  {Object} withApolloOptions
+ * @param  {Boolean} [withApolloOptions.ssr=false]
+ * @returns {(PageComponent: ReactNode) => ReactNode}
+ */
+export const withApollo = ({ ssr = true } = {}) => PageComponent => {
   const WithApollo = ({
     apolloClient,
-    serverAccessToken,
     apolloState,
+    serverAccessToken,
     ...pageProps
-  }: any) => {
+  }) => {
+    let client;
     if (!isServer() && !getAccessToken()) {
       setAccessToken(serverAccessToken);
     }
-    const client = apolloClient || initApolloClient(apolloState);
-    return <PageComponent {...pageProps} apolloClient={client} />;
-  };
-
-  if (process.env.NODE_ENV !== "production") {
-    // Find correct display name
-    const displayName =
-      PageComponent.displayName || PageComponent.name || "Component";
-
-    // Warn if old way of installing apollo is used
-    if (displayName === "App") {
-      console.warn("This withApollo HOC only works with PageComponents.");
+    if (apolloClient) {
+      // Happens on: getDataFromTree & next.js ssr
+      client = apolloClient;
+    } else {
+      // Happens on: next.js csr
+      client = initApolloClient(apolloState, undefined, serverAccessToken);
     }
 
-    // Set correct display name for devtools
+    return (
+      <ApolloProvider client={client}>
+        <PageComponent {...pageProps} />
+      </ApolloProvider>
+    );
+  };
+
+  // Set the correct displayName in development
+  if (process.env.NODE_ENV !== "production") {
+    const displayName = PageComponent.displayName || PageComponent.name;
     WithApollo.displayName = `withApollo(${displayName})`;
   }
 
   if (ssr || PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = async (ctx: any) => {
-      const {
-        AppTree,
-        ctx: { req, res }
-      } = ctx;
-
+    WithApollo.getInitialProps = async ctx => {
+      const inAppContext = Boolean(ctx.ctx);
+      const { apolloClient } = initOnContext(ctx);
       let serverAccessToken = "";
 
-      if (isServer()) {
+      // Run wrapped getInitialProps methods
+      let pageProps = {};
+      if (PageComponent.getInitialProps) {
+        pageProps = await PageComponent.getInitialProps(ctx);
+      } else if (inAppContext) {
+        pageProps = await App.getInitialProps(ctx);
+      }
+
+      // Only on the server:
+      if (typeof window === "undefined") {
+        const {
+          AppTree,
+          ctx: { req, res }
+        } = ctx;
+        if (ctx.res && ctx.res.finished) {
+          return pageProps;
+        }
+
         const cookies = cookie.parse(
           req.headers.cookie ? req.headers.cookie : ""
         );
@@ -79,156 +177,47 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
           });
           const data = await response.json();
           serverAccessToken = data.accessToken;
-        }
-      }
-
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
-      const apolloClient = (ctx.ctx.apolloClient = initApolloClient(
-        {},
-        serverAccessToken
-      ));
-
-      const pageProps = PageComponent.getInitialProps
-        ? await PageComponent.getInitialProps(ctx)
-        : {};
-
-      // Only on the server
-      if (typeof window === "undefined") {
-        // When redirecting, the response is finished.
-        // No point in continuing to render
-        if (res && res.finished) {
-          return {};
+          setAccessToken(serverAccessToken);
         }
 
-        if (ssr) {
+        // Only if dataFromTree is enabled
+        if (ssr && AppTree) {
           try {
+            // Import `@apollo/react-ssr` dynamically.
+            // We don't want to have this in our client bundle.
             const { getDataFromTree } = await import("@apollo/react-ssr");
-            await getDataFromTree(
-              <AppTree
-                pageProps={{
-                  ...pageProps,
-                  apolloClient
-                }}
-                apolloClient={apolloClient}
-              />
-            );
+
+            // Since AppComponents and PageComponents have different context types
+            // we need to modify their props a little.
+            let props;
+            if (inAppContext) {
+              props = { ...pageProps, apolloClient };
+            } else {
+              props = { pageProps: { ...pageProps, apolloClient } };
+            }
+
+            // Take the Next.js AppTree, determine which queries are needed to render,
+            // and fetch them. This method can be pretty slow since it renders
+            // your entire AppTree once for every query. Check out apollo fragments
+            // if you want to reduce the number of rerenders.
+            // https://www.apollographql.com/docs/react/data/fragments/
+            await getDataFromTree(<AppTree {...props} />);
           } catch (error) {
-            // Prevent Apollo Client GraphQL errors from crashing SSR.
             console.error("Error while running `getDataFromTree`", error);
           }
+
+          Head.rewind();
         }
-
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
-        Head.rewind();
       }
-
-      // Extract query data from the Apollo store
-      const apolloState = apolloClient.cache.extract();
 
       return {
         ...pageProps,
-        apolloState,
+        apolloState: apolloClient.cache.extract(),
+        apolloClient: ctx.apolloClient,
         serverAccessToken
       };
     };
   }
 
   return WithApollo;
-}
-
-let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
-
-/**
- * Always creates a new apollo client on the server
- * Creates or reuses apollo client in the browser.
- */
-function initApolloClient(initState: any, serverAccessToken?: string) {
-  // Make sure to create a new client for every server-side request so that data
-  // isn't shared between connections (which would be bad)
-  if (isServer()) {
-    return createApolloClient(initState, serverAccessToken);
-  }
-
-  // Reuse client on the client-side
-  if (!apolloClient) {
-    // setAccessToken(cookie.parse(document.cookie).test);
-    apolloClient = createApolloClient(initState);
-  }
-
-  return apolloClient;
-}
-
-/**
- * Creates and configures the ApolloClient
- * @param  {Object} [initialState={}]
- * @param  {Object} config
- */
-function createApolloClient(initialState = {}, serverAccessToken?: string) {
-  const fetchOptions = {
-    "Access-Control-Allow-Origin": "https://api.typefeel.com"
-  };
-  const uploadLink = createUploadLink({
-    uri: gqlLink,
-    credentials: "include",
-    fetch,
-    fetchOptions
-  });
-
-  const refreshLink = new TokenRefreshLink({
-    accessTokenField: "accessToken",
-    isTokenValidOrUndefined: () => {
-      const token = getAccessToken();
-
-      if (!token) {
-        return true;
-      }
-
-      try {
-        const { exp } = jwtDecode(token);
-        if (Date.now() >= exp * 1000) {
-          return false;
-        } else {
-          return true;
-        }
-      } catch {
-        return false;
-      }
-    },
-    fetchAccessToken: () => {
-      return fetch(refreshLink, {
-        method: "POST",
-        credentials: "include"
-      });
-    },
-    handleFetch: accessToken => {
-      setAccessToken(accessToken);
-    },
-    handleError: err => {
-      console.warn("Your refresh token is invalid. Try to relogin");
-      console.error(err);
-    }
-  });
-
-  const authLink = setContext((_request, { headers }) => {
-    const token = isServer() ? serverAccessToken : getAccessToken();
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `bearer ${token}` : ""
-      }
-    };
-  });
-
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
-    console.log(graphQLErrors);
-    console.log(networkError);
-  });
-
-  return new ApolloClient({
-    ssrMode: typeof window === "undefined", // Disables forceFetch on the server (so queries are only run once)
-    link: ApolloLink.from([refreshLink, authLink, errorLink, uploadLink]),
-    cache: new InMemoryCache().restore(initialState)
-  });
-}
+};

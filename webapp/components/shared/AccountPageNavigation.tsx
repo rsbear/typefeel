@@ -19,10 +19,7 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
   const handleLogout = async () => {
     event.preventDefault();
     await logout();
-    setAccessToken("");
-    await client!.resetStore().then(() => {
-      router.push("/");
-    });
+    router.push("/dashboard/logout");
   };
 
   return (
@@ -58,7 +55,9 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
             </li>
           </a>
         </Link>
-        <li onClick={handleLogout}>Log out</li>
+        <li css={logoutButton} onClick={handleLogout}>
+          Log out
+        </li>
         {/* <li>Billing</li> */}
       </ul>
     </div>
@@ -92,4 +91,8 @@ const accountNav = css`
       border-bottom: solid 1px ${colors.black70};
     }
   }
+`;
+
+const logoutButton = css`
+  cursor: pointer;
 `;

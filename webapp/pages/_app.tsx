@@ -17,27 +17,28 @@ const AppFunction = ({ Component, pageProps }) => {
   const authUser = !loading && !error && data && data.me;
 
   // const value = useMemo(() => ({ authUser }), [authUser]);
-  console.log("mmono repo");
 
   return (
     <AppContext.Provider value={{ authUser }}>
+      <Global styles={globalStyle} />
+      <NextNprogress color="rgba(0,0,0,.8)" height="3" />
       <Component {...pageProps} />
     </AppContext.Provider>
   );
 };
 
-class MyApp extends App<any> {
-  render() {
-    const { Component, pageProps, apolloClient } = this.props;
-    return (
-      <ApolloProvider client={apolloClient}>
-        <Global styles={globalStyle} />
-        <NextNprogress color="rgba(0,0,0,.8)" height="3" />
-        <AppFunction Component={Component} pageProps={pageProps} />
-      </ApolloProvider>
-    );
-  }
-}
+// class MyApp extends App<any> {
+//   render() {
+//     const { Component, pageProps, apolloClient } = this.props;
+//     return (
+//       <ApolloProvider client={apolloClient}>
+//         <Global styles={globalStyle} />
+//         <NextNprogress color="rgba(0,0,0,.8)" height="3" />
+//         <AppFunction Component={Component} pageProps={pageProps} />
+//       </ApolloProvider>
+//     );
+//   }
+// }
 
 // export default withApollo(MyApp);
-export default withApollo(MyApp);
+export default withApollo({ ssr: true })(AppFunction);

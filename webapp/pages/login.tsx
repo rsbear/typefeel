@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { Formik } from "formik";
 
 import redirect from "lib/redirect";
+import { LoadingBar } from "components/shared/LoadingBar";
 
 const Login: FC<any> = () => {
   const [stateEmail, setEmail] = useState("");
@@ -134,7 +135,7 @@ const Login: FC<any> = () => {
               name="secret"
             />
             <Button type="submit" primary="true">
-              {!isLoading ? "Log in" : "Processing..."}
+              {!isLoading ? "Log in" : <LoadingBar />}
             </Button>
           </form>
         )}

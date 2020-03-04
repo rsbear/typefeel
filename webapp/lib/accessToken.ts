@@ -1,4 +1,5 @@
-let accessToken = "";
+export let accessToken = "";
+console.log("access token" + accessToken)
 
 export const setAccessToken = (s: string) => {
   accessToken = s;
