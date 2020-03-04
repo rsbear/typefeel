@@ -1,31 +1,29 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { GetProps } from "interfaces/GetProps";
+import { useKeyboardDataQuery, useCreatePostMutation } from "generated/graphql";
+import Link from "next/link";
+
 import Layout from "components/layouts/Layout";
-import {
-  useKeyboardDataQuery,
-  useCreatePostMutation,
-  useKeyboardPostsQuery
-} from "generated/graphql";
-import { text, fontSize } from "styles/text";
-import { flex, colors } from "styles/main";
 import CasesBarGraph from "components/keyboardcharts/CasesBarGraph";
 import PlatesBarGraph from "components/keyboardcharts/PlatesBarGraph";
 import LayoutsBarGraph from "components/keyboardcharts/LayoutsBarGraph";
-import { useAppContext } from "hooks/useAppContext";
-import { css } from "@emotion/core";
 import KeyboardSummary from "components/KeyboardSummary";
 import Post from "components/shared/Post";
+
 import { PostInterface } from "interfaces/PostInterface";
+import { useAppContext } from "hooks/useAppContext";
+
+import { css } from "@emotion/core";
 import { ReplyBox } from "styles/inputs";
-import Link from "next/link";
-import { Button, btn } from "styles/buttons";
+import { fontSize } from "styles/text";
+import { flex, colors } from "styles/main";
+import { Button } from "styles/buttons";
 
 const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
   const [caseData, setCaseData] = useState([]);
   const [platesData, setPlatesData] = useState([]);
   const [layoutsData, setLayoutsData] = useState([]);
-  const [editionsData, setEditionsData] = useState([]);
   const [limit, setLimit] = useState(20);
 
   const [body, setBody] = useState("");
