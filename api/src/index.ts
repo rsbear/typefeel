@@ -89,7 +89,7 @@ const origin = !prod ? "http://localhost:3000" : "https://typefeel.com";
   });
 
   const users = await User.find()
-  if (users.length === 0) {
+  if (!prod && users.length === 0) {
     await seeder()
   }
 
