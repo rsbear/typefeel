@@ -665,6 +665,13 @@ export type KeyboardDataQuery = (
     )>>, joins: Maybe<Array<(
       { __typename?: 'JoinKeyboard' }
       & Pick<JoinKeyboard, 'id' | 'caseChoice' | 'layoutChoice' | 'plateChoice'>
+    )>>, posts: Maybe<Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'body' | 'created'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'username'>
+      ) }
     )>> }
   ) }
 );
@@ -1423,6 +1430,14 @@ export const KeyboardDataDocument = gql`
     name
     shortId
     size
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
   }
 }
     `;

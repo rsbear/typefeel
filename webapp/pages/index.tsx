@@ -9,6 +9,7 @@ import { useSortKeyboardsQuery, useSortKeysetsQuery } from "generated/graphql";
 import Tile from "components/Tile";
 import { RoundButton } from "styles/buttons";
 import { useAppContext } from "hooks/useAppContext";
+import { LoadingBar } from "components/shared/LoadingBar";
 
 const Landing: GetProps<any> = () => {
   const { authUser } = useAppContext();
@@ -36,7 +37,7 @@ const Landing: GetProps<any> = () => {
           </Link>
         </div>
       )}
-      {keyboards.loading || (keysets.loading && <h2>Loading</h2>)}
+      {keyboards.loading || (keysets.loading && <LoadingBar big={true} />)}
       <h2 css={margins("0 0 10px 0")}>Keyboards in interest check</h2>
       {!keyboards.loading &&
         !keyboards.error &&

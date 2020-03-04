@@ -29,5 +29,13 @@ query KeyboardData($shortId: String!) {
     name
     shortId
     size
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
   }
 }

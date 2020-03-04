@@ -11,6 +11,7 @@ import FollowTile from "components/dashboard/FollowTile";
 import { flex } from "styles/main";
 import JoinTile from "components/dashboard/JoinTile";
 import { useAppContext } from "hooks/useAppContext";
+import { LoadingBar } from "components/shared/LoadingBar";
 
 const Dashboard: FC<any> = () => {
   const { authUser } = useAppContext();
@@ -19,7 +20,7 @@ const Dashboard: FC<any> = () => {
 
   return (
     <Layout title="Dashboard">
-      {loading && <h1>Loading...</h1>}
+      {loading && <LoadingBar big={true} />}
       {error && <h2>Oops, something went wrong.</h2>}
       {!loading && data && data.me && (
         <div>

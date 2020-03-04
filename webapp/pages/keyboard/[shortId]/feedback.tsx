@@ -30,11 +30,9 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
 
   const [body, setBody] = useState("");
 
-  const { loading, error, data } = useKeyboardDataQuery({
+  const { loading, error, data, refetch } = useKeyboardDataQuery({
     variables: { shortId }
   });
-
-  const postsQuery = useKeyboardPostsQuery({ variables: { shortId } });
 
   useEffect(() => {
     if (!loading && !error && data) {
@@ -91,16 +89,16 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
       await createPost({
         variables: { id: data.keyboard.id, body }
       });
-      postsQuery.refetch();
+      refetch();
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleFetchMore = () => {
-    setLimit(limit + 20);
-    postsQuery.refetch();
-  };
+  // const handleFetchMore = () => {
+  //   setLimit(limit + 20);
+  //   postsQuery.refetch();
+  // };
 
   const dynamicNav = {
     name: !loading ? data.keyboard.name : "",
@@ -131,8 +129,8 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
               <ul>
                 {!loading &&
                   !error &&
-                  postsQuery.data &&
-                  postsQuery.data.keyboard.posts
+                  data &&
+                  data.keyboard.posts
                     .slice(0, limit)
                     .map((p: PostInterface) => (
                       <Post
@@ -144,21 +142,19 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                       />
                     ))}
               </ul>
-              {postsQuery.data.keyboard.posts.length >= 20 && (
+              {data.keyboard.posts.length >= 20 && (
                 <div css={[btnContainer]}>
                   <button
                     css={[btnOverride, showMoreButton]}
                     type="button"
-                    onClick={() =>
-                      setLimit(postsQuery.data.keyboard.posts.length)
-                    }
+                    onClick={() => setLimit(data.keyboard.posts.length)}
                   >
                     Show latest
                   </button>
                   <button
                     css={[btnOverride, showMoreButton]}
                     type="button"
-                    onClick={handleFetchMore}
+                    onClick={() => setLimit(limit + 20)}
                   >
                     Show more
                   </button>
