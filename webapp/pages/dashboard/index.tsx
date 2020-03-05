@@ -22,19 +22,21 @@ const Dashboard: FC<any> = () => {
     <Layout title="Dashboard">
       {loading && <LoadingBar big={true} />}
       {error && <h2>Oops, something went wrong.</h2>}
-      {!loading && data && data.me && (
+      {!loading && data && data.userDashboard && (
         <div>
           <AccountPageNavigation username={authUser.username} router={router} />
           <div css={[flex.row]}>
             <div css={joinsWrapper}>
               <h2>Joins</h2>
-              {data.me.keyboardjoins.map(({ keyboard }: any, i: number) => (
-                <JoinTile key={i} keyboard={keyboard} />
-              ))}
+              {data.userDashboard.keyboardjoins.map(
+                ({ keyboard }: any, i: number) => (
+                  <JoinTile key={i} keyboard={keyboard} />
+                )
+              )}
             </div>
             <div css={followsWrapper}>
               <h2>Follows</h2>
-              {data.me.follows.map((f: any) => (
+              {data.userDashboard.follows.map((f: any) => (
                 <FollowTile
                   keyboard={f.keyboard}
                   keyset={f.keyset}

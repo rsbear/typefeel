@@ -10,35 +10,51 @@ import { Global } from "@emotion/core";
 import { globalStyle } from "styles/main";
 import { useMeQuery } from "generated/graphql";
 
+// const AppFunction = ({ Component, pageProps }) => {
+//   const { loading, error, data } = useMeQuery({
+//     // fetchPolicy: "cache-first"
+//   });
+//   const authUser = !loading && !error && data && data.me;
+//   const value = useMemo(() => ({ authUser }), [authUser]);
+
+//   return (
+//     <AppContext.Provider value={value}>
+//       <Global styles={globalStyle} />
+//       <NextNprogress color="rgba(0,0,0,.8)" height="3" />
+//       <Component {...pageProps} />
+//     </AppContext.Provider>
+//   );
+// };
+
+// export default withApollo({ ssr: true })(AppFunction);
+
 const AppFunction = ({ Component, pageProps }) => {
   const { loading, error, data } = useMeQuery({
-    fetchPolicy: "cache-first"
+    // fetchPolicy: "cache-first"
   });
   const authUser = !loading && !error && data && data.me;
-
-  // const value = useMemo(() => ({ authUser }), [authUser]);
+  const value = useMemo(() => ({ authUser }), [authUser]);
 
   return (
-    <AppContext.Provider value={{ authUser }}>
-      <Global styles={globalStyle} />
-      <NextNprogress color="rgba(0,0,0,.8)" height="3" />
+    <AppContext.Provider value={value}>
+      {/* <Global styles={globalStyle} />
+      <NextNprogress color="rgba(0,0,0,.8)" height="3" /> */}
       <Component {...pageProps} />
     </AppContext.Provider>
   );
 };
 
-// class MyApp extends App<any> {
-//   render() {
-//     const { Component, pageProps, apolloClient } = this.props;
-//     return (
-//       <ApolloProvider client={apolloClient}>
-//         <Global styles={globalStyle} />
-//         <NextNprogress color="rgba(0,0,0,.8)" height="3" />
-//         <AppFunction Component={Component} pageProps={pageProps} />
-//       </ApolloProvider>
-//     );
-//   }
-// }
+class MyApp extends App<any> {
+  render() {
+    const { Component, pageProps, apolloClient } = this.props;
+    return (
+      <ApolloProvider client={apolloClient}>
+        <Global styles={globalStyle} />
+        <NextNprogress color="rgba(0,0,0,.8)" height="3" />
+        <AppFunction Component={Component} pageProps={pageProps} />
+      </ApolloProvider>
+    );
+  }
+}
 
-// export default withApollo(MyApp);
-export default withApollo({ ssr: true })(AppFunction);
+export default withApollo(MyApp);

@@ -21,11 +21,14 @@ const Dashboard: FC<any> = () => {
     <Layout title="Dashboard - My Keysets">
       {loading && <h1>Loading...</h1>}
       {error && <h2>Oops, something went wrong.</h2>}
-      {!loading && data && data.me && (
+      {!loading && data && data.userDashboard && (
         <div>
-          <AccountPageNavigation username={data.me.username} router={router} />
+          <AccountPageNavigation
+            username={data.userDashboard.username}
+            router={router}
+          />
           <h3>My keysets in interest check</h3>
-          {data.me.keysets.map(
+          {data.userDashboard.keysets.map(
             (k: any) =>
               k.interestCheck && <KeysetProjectTile key={k.id} keyset={k} />
           )}

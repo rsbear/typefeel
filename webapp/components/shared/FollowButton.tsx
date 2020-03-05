@@ -50,7 +50,7 @@ const FollowButton: FC<Props> = ({ id }) => {
       setFollowing(false);
       try {
         await unfollowMut({
-          variables: { id: followId }
+          variables: { id: followId, productId: id }
         });
         setFollowId("");
       } catch (err) {

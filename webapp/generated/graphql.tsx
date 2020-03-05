@@ -429,6 +429,7 @@ export type MutationCreateFollowArgs = {
 
 
 export type MutationUnfollowArgs = {
+  productId: Scalars['String'],
   id: Scalars['String']
 };
 
@@ -450,6 +451,7 @@ export type Query = {
   bye: Scalars['String'],
   users: Array<User>,
   me?: Maybe<User>,
+  userDashboard?: Maybe<User>,
   auths: Array<Auth>,
   keyboards: Array<Keyboard>,
   keyboard: Keyboard,
@@ -514,6 +516,7 @@ export type User = {
   keyboards: Array<Keyboard>,
   keysets: Array<Keyset>,
   votes: Array<Vote>,
+  followIds?: Maybe<Array<Scalars['String']>>,
   follows: Array<Follow>,
   keyboardjoins: Array<JoinKeyboard>,
   keysetjoins: Array<JoinKeyset>,
@@ -866,17 +869,10 @@ export type MeQuery = (
       & Pick<JoinKeyboard, 'id' | 'keyboardId'>
     )>, keysetjoins: Array<(
       { __typename?: 'JoinKeyset' }
-      & Pick<JoinKeyset, 'keysetId'>
+      & Pick<JoinKeyset, 'id' | 'keysetId'>
     )>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id' | 'productId'>
-      & { keyboard: Maybe<(
-        { __typename?: 'Keyboard' }
-        & Pick<Keyboard, 'id' | 'shortId'>
-      )>, keyset: Maybe<(
-        { __typename?: 'Keyset' }
-        & Pick<Keyset, 'id' | 'shortId'>
-      )> }
     )> }
   )> }
 );
@@ -927,7 +923,8 @@ export type SortKeysetsQuery = (
 );
 
 export type UnfollowMutationVariables = {
-  id: Scalars['String']
+  id: Scalars['String'],
+  productId: Scalars['String']
 };
 
 
@@ -963,7 +960,7 @@ export type UserDashboardQueryVariables = {};
 
 export type UserDashboardQuery = (
   { __typename?: 'Query' }
-  & { me: Maybe<(
+  & { userDashboard: Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'id' | 'username' | 'email'>
     & { keyboards: Array<(
@@ -1910,19 +1907,12 @@ export const MeDocument = gql`
       keyboardId
     }
     keysetjoins {
+      id
       keysetId
     }
     follows {
       id
       productId
-      keyboard {
-        id
-        shortId
-      }
-      keyset {
-        id
-        shortId
-      }
     }
   }
 }
@@ -2065,8 +2055,8 @@ export type SortKeysetsQueryHookResult = ReturnType<typeof useSortKeysetsQuery>;
 export type SortKeysetsLazyQueryHookResult = ReturnType<typeof useSortKeysetsLazyQuery>;
 export type SortKeysetsQueryResult = ApolloReactCommon.QueryResult<SortKeysetsQuery, SortKeysetsQueryVariables>;
 export const UnfollowDocument = gql`
-    mutation Unfollow($id: String!) {
-  unfollow(id: $id)
+    mutation Unfollow($id: String!, $productId: String!) {
+  unfollow(id: $id, productId: $productId)
 }
     `;
 export type UnfollowMutationFn = ApolloReactCommon.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
@@ -2085,6 +2075,7 @@ export type UnfollowMutationFn = ApolloReactCommon.MutationFunction<UnfollowMuta
  * const [unfollowMutation, { data, loading, error }] = useUnfollowMutation({
  *   variables: {
  *      id: // value for 'id'
+ *      productId: // value for 'productId'
  *   },
  * });
  */
@@ -2158,7 +2149,7 @@ export type UpdateKeysetMutationResult = ApolloReactCommon.MutationResult<Update
 export type UpdateKeysetMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateKeysetMutation, UpdateKeysetMutationVariables>;
 export const UserDashboardDocument = gql`
     query userDashboard {
-  me {
+  userDashboard {
     id
     username
     email

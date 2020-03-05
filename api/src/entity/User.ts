@@ -37,6 +37,10 @@ export class User extends BaseEntity {
   @OneToMany(() => Vote, vote => vote.user)
   votes: Vote[]
 
+  @Field(() => [String], { nullable: true })
+  @Column("simple-array", { nullable: true })
+  followIds: string[]
+
   @Field(() => [Follow])
   @OneToMany(() => Follow, follow => follow.user)
   follows: Follow

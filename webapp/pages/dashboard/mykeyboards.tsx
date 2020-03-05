@@ -22,13 +22,16 @@ const Dashboard: FC<any> = () => {
     <Layout title="Dashboard - My Keyboards" authUser={authUser}>
       {loading && <h1>Loading...</h1>}
       {error && <h2>Oops, something went wrong.</h2>}
-      {!loading && data && data.me && (
+      {!loading && data && data.userDashboard && (
         <div>
-          <AccountPageNavigation username={data.me.username} router={router} />
+          <AccountPageNavigation
+            username={data.userDashboard.username}
+            router={router}
+          />
           <div css={[flex.row]}>
             <div css={interestCheckWrapper}>
               <h2>In interest check</h2>
-              {data.me.keyboards.map(
+              {data.userDashboard.keyboards.map(
                 (k: any) =>
                   k.interestCheck && (
                     <KeyboardProjectTile key={k.id} keyboard={k} />

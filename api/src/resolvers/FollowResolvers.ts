@@ -30,6 +30,12 @@ export class FollowResolvers {
   ) {
     try {
       const user = await User.findOne(payload!.userId)
+      if (!user) {
+        return {
+          success: false,
+          message: "No user found"
+        }
+      }
 
       if (id.includes("kb_")) {
         const keyboard = await Keyboard.findOne({ id })
@@ -38,6 +44,12 @@ export class FollowResolvers {
           keyboard,
           user
         }).save()
+
+        const follows = !user.followIds ? [id] : [...user.followIds, id]
+        await User.update({ id: user.id }, {
+          followIds: follows
+        })
+
         return {
           success: true,
           id: follow.id
@@ -51,6 +63,10 @@ export class FollowResolvers {
           keyset,
           user
         }).save()
+        const follows = !user.followIds ? [id] : [...user.followIds, id]
+        await User.update({ id: user.id }, {
+          followIds: follows
+        })
         return {
           success: true,
           id: follow.id
@@ -67,6 +83,7 @@ export class FollowResolvers {
   @UseMiddleware(checkAuth)
   async unfollow(
     @Arg("id") id: string,
+    @Arg("productId") productId: string,
     @Ctx() { payload }: AppContext
   ) {
     try {
@@ -74,6 +91,9 @@ export class FollowResolvers {
       if (!user) throw new Error("Log in")
 
       await Follow.delete({ id })
+      await User.update({ id: user.id }, {
+        followIds: user.followIds.filter(x => x !== productId)
+      })
 
     } catch (err) {
       console.log(err)

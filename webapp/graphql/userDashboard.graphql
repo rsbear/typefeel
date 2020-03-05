@@ -1,5 +1,5 @@
 query userDashboard {
-  me {
+  userDashboard {
     id
     username
     email

@@ -54,8 +54,31 @@ export class UserResolvers {
   @Query(() => User, { nullable: true })
   me(@Ctx() context: AppContext) {
     const authorization = context.req.headers["authorization"];
-    console.log(authorization)
+    if (!authorization) {
+      return null;
+    }
 
+    try {
+      const token = authorization.split(" ")[1];
+      const payload: any = verify(token, process.env.ACCESS_TOKEN_SECRET!);
+      return User.findOne(payload.userId, {
+        relations: [
+          "keyboardjoins",
+          "keyboardjoins.keyboard",
+          "keysetjoins",
+          "keysetjoins.keyset",
+          "follows"
+        ]
+      });
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  @Query(() => User, { nullable: true })
+  userDashboard(@Ctx() context: AppContext) {
+    const authorization = context.req.headers["authorization"];
     if (!authorization) {
       return null;
     }
@@ -143,7 +166,8 @@ export class UserResolvers {
 
       const user = await User.create({
         email,
-        username
+        username,
+        followIds: []
       }).save();
 
       sendRefreshToken(res, createRefreshToken(user));

@@ -125,21 +125,17 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
           <div css={[flex.row, flex.space, postsAndGraphsWrapper]}>
             <div css={postsWrapper}>
               <h2>Discussion</h2>
+              {!data.keyboard.posts.length && <h3>Start the conversation.</h3>}
               <ul>
-                {!loading &&
-                  !error &&
-                  data &&
-                  data.keyboard.posts
-                    .slice(0, limit)
-                    .map((p: PostInterface) => (
-                      <Post
-                        key={p.id}
-                        id={p.id}
-                        body={p.body}
-                        created={p.created}
-                        username={p.user.username}
-                      />
-                    ))}
+                {data.keyboard.posts.slice(0, limit).map((p: PostInterface) => (
+                  <Post
+                    key={p.id}
+                    id={p.id}
+                    body={p.body}
+                    created={p.created}
+                    username={p.user.username}
+                  />
+                ))}
               </ul>
               {data.keyboard.posts.length >= 20 && (
                 <div css={[btnContainer]}>

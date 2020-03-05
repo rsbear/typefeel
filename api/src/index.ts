@@ -23,13 +23,14 @@ import { JoinKeyboardResolver } from "./resolvers/JoinKeyboardResolver";
 import { JoinKeysetResolver } from "./resolvers/JoinKeysetResolver";
 import { PostResolver } from "./resolvers/PostResolver";
 import { FollowResolvers } from "./resolvers/FollowResolvers";
-import { seeder } from "./data";
+// import { seeder } from "./data";
 
 
-const prod = process.env.NODE_ENV === 'production'
-const origin = !prod ? "http://localhost:3000" : "https://typefeel.com";
 
 (async () => {
+  const prod = process.env.NODE_ENV === 'production'
+  const origin = !prod ? "http://localhost:3000" : "https://typefeel.com";
+
   const app = express();
   app.use(
     cors({
@@ -88,10 +89,10 @@ const origin = !prod ? "http://localhost:3000" : "https://typefeel.com";
     console.log(error);
   });
 
-  const users = await User.find()
-  if (!prod && users.length === 0) {
-    await seeder()
-  }
+  // const users = await User.find()
+  // if (!prod && users.length === 0) {
+  //   await seeder()
+  // }
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
