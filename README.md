@@ -3,13 +3,18 @@
 typefeel.com is a web application for keyboard enthusiasts to share and get involved in projects. This repo is repo contains the API as well as the web application.
 
 ### The stack
-* PostgreSQL 
-* API -- Apollo server, [TypeGraphQL](https://typegraphql.ml/docs/introduction.html), [TypeORM](https://typeorm.io/#/)
-* Web application -- React / [NextJS](https://nextjs.org/docs/getting-started)
+- [PostgreSQL](https://www.postgresql.org/) 
+- API
+  - [Apollo server](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express)
+  - [TypeGraphQL](https://typegraphql.ml/docs/introduction.html) 
+  - [TypeORM](https://typeorm.io/#/)
+- Web application -
+  - [React](https://reactjs.org/docs/getting-started.html) / [NextJS](https://nextjs.org/docs/getting-started)
+  - [Emotion](https://emotion.sh/docs/introduction) (css)
 
 Prerequisites: Docker
 
-## Get the project
+## Download the project
 In terminal
 ```
 git clone https://github.com/rsbear/typefeel.git
