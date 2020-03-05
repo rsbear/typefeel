@@ -18,6 +18,7 @@ import { ReplyBox } from "styles/inputs";
 import { fontSize } from "styles/text";
 import { flex, colors } from "styles/main";
 import { Button } from "styles/buttons";
+import { LoadingBar } from "components/shared/LoadingBar";
 
 const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
@@ -106,7 +107,7 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
 
   return (
     <Layout title="Data" dynamicNav={dynamicNav}>
-      {loading && <h2 />}
+      {loading && <LoadingBar big={true} />}
       {!loading && !error && data && data.keyboard && (
         <div>
           <KeyboardSummary

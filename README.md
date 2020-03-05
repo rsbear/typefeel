@@ -1,49 +1,88 @@
-# type-api for typefeel.com
+# [typefeel.com](https://typefeel.com)
 
-This is the backend repo for typefeel, a web application for keyboard enthusiasts.
-The client repo can be found here [https://github.com/rsbear/typefeel](https://github.com/rsbear/typefeel)
+typefeel.com is a web application for keyboard enthusiasts to share and get involved in projects. This repo is repo contains the API as well as the web application.
+
+### The stack
+* PostgreSQL 
+* API -- Apollo server, [TypeGraphQL](https://typegraphql.ml/docs/introduction.html), [TypeORM](https://typeorm.io/#/)
+* Web application -- React / [NextJS](https://nextjs.org/docs/getting-started)
 
 Prerequisites: Docker
 
-## Start
-
+## Get the project
 In terminal
 ```
-git clone https://github.com/rsbear/type-api.git
-cd type-api-master
-yarn && yarn install
+git clone https://github.com/rsbear/typefeel.git
+cd typefeel-master
 ```
 
+## Start the API
+
 ### Create the database using [Docker](https://www.docker.com/)
-``docker-compose up -d``
+In terminal (make sure you're in typefeel-master)
+```
+cd api
+docker-compose up -d
+```
 
-### Connecting the database to the server
-``touch ormconfig.json``
-paste the following in the new json file,
-username, password, port, and database need to be whatever it is you set them to be in  ``docker-compose.yml``
+By default, the server will connect to your local database. If for some reason you want to change the connection properties, you can do so in ``docker-compose.yml`` and ``/api/src/index.ts``
 
-```json
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "test",
-  "password": "test",
-  "database": "test",
-  "synchronize": true,
-  "logging": false,
-  "entities": ["src/entity/**/*.ts"],
-  "migrationsTableName": "custom_migration_table",
-  "migrations": ["src/migration/**/*.ts"],
-  "subscribers": ["src/subscriber/**/*.ts"],
-  "cli": {
-    "entitiesDir": "src/entity",
-    "migrationsDir": "src/migration",
-    "subscribersDir": "src/subscriber"
+Once the database is up. In terminal make sure you're in `/api` directory:
+```
+yarn && yarn install
+yarn dev
+```
+A connection string will show up in your terminal `http://localhost:4000/graphql`
+
+## Start the web app
+In terminal navigate with typefeel-master as your root
+```
+cd webapp
+yarn && yarn install && yarn dev
+```
+
+### To generate new useQuery or useMutation hook
+Codegen introspects the GraphQL schema of the API. In order to generate the query or mutation
+for the frontend it must first exist in the schema. So once you have created the query or mutation on type-api, you're ready to generate it for the frontend.
+
+Make a new .graphql file
+```
+cd graphql
+touch newMutation.graphql
+```
+please note newMutation is just a substitute; please name your file accordingly
+Here is an examples of how `newMutation.graphql` might look
+```graphql
+mutation NewMutation($input: NewDataInput) {
+  newMutation(input: $input) {
+    success
+    message
   }
 }
 ```
-### 
+Then run ```yarn generate```, and it will create a custom hook in 
+- /generated
+  - graphql.tsx
+
+### Using the new query or mutation hook
+Open whichever component or page you want the hook and implement it.
+Example of your newMutation
+
+```javascript
+  const [newMutation] = useNewMutationMutation({ variables: { input: { fake: "", fake2: "" } }})
+
+  const handleMutation = () => {
+    event.preventDefault()
+    try {
+      const response = await newMutation()
+      // then do something with the response
+      console.log(response)
+    } catch (err) {
+      // fail gracefully
+    }
+  }
+```
+
 
 ## Run it
 ```yarn install && yarn dev```

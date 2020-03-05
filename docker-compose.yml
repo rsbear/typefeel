@@ -1,0 +1,43 @@
+version: '3'
+services:
+  # postgres
+  postgres:
+    image: "mdillon/postgis:9.6"
+    container_name: "typefeel-db"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "typefeel"
+      POSTGRES_PASSWORD: "typefeel"
+      POSTGRES_DB: "type-db"
+  api:
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    container_name: api
+    ports:
+      - '4000:4000'
+    build:
+      context: api
+      dockerfile: Dockerfile
+      # args:
+      #   - MYSQL_URL=${MYSQL_URL}
+    # environment:
+    #   MYSQL_URL: ${MYSQL_URL}
+    #   FRONTEND_URL: ${FRONTEND_URL}
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+  webapp:
+    container_name: webapp
+    ports:
+      - '3000:3000'
+    build:
+      context: webapp
+      dockerfile: Dockerfile
+    volumes:
+      - ./webapp:/app
+      - /app/node_modules
+      - /app/.next
+  
