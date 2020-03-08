@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import { inputBox } from "styles/inputs";
 import { margins } from "styles/main";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import Link from "next/link";
 import {
   useSignupMutation,

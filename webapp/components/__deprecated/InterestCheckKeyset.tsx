@@ -7,13 +7,13 @@
 import React, { FC, useState } from "react";
 import { useJoinKeysetMutation } from "generated/graphql";
 
-import { Button, RoundButton } from "styles/buttons";
 import { grid50, margins, flex } from "styles/main";
 import { css } from "@emotion/core";
 import FollowButton from "../shared/FollowButton";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
 import JoinButton from "./JoinButton";
+import { Button } from "../styled/Button";
 
 interface Props {
   kits?: any;

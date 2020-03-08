@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { css } from "@emotion/core";
 import { colors, flex } from "styles/main";
 import Link from "next/link";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 
 interface Props {
   keyboard: {

@@ -7,7 +7,6 @@ import React, { FC, useState, useReducer } from "react";
 
 import css from "@emotion/css";
 import { flex, grid50, margins, colors } from "styles/main";
-import { Button, RoundButton } from "styles/buttons";
 import { useJoinKeyboardMutation } from "generated/graphql";
 import FollowButton from "../shared/FollowButton";
 import { AuthUser } from "interfaces/AuthUser";
@@ -15,6 +14,7 @@ import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
 import JoinButton from "./JoinButton";
 import { useRouter } from "next/router";
+import { Button } from "../styled/Button";
 
 interface Props {
   id?: string;

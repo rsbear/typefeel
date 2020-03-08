@@ -15,7 +15,7 @@ import Layout from "components/layouts/Layout";
 
 import { css } from "@emotion/core";
 import { ReplyBox } from "styles/inputs";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import { flex, colors } from "styles/main";
 import { fontSize } from "styles/text";
 import { useAppContext } from "hooks/useAppContext";

@@ -7,7 +7,7 @@ import { text } from "styles/text";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
 import { colors, flex, borderBox, margins } from "styles/main";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import { useAppContext } from "hooks/useAppContext";
 import useAuthChecker from "hooks/useAuthChecker";
 
@@ -296,9 +296,7 @@ const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
                     </div>
                   )}
                 />
-                <Button type="submit" primary="true">
-                  Post update
-                </Button>
+                <Button type="submit">Post update</Button>
               </form>
             )}
           </Formik>

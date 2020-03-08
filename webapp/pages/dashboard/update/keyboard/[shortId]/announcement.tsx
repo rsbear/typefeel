@@ -8,7 +8,7 @@ import {
 } from "generated/graphql";
 import { Formik } from "formik";
 import { FormikInput, FormikArea } from "styles/inputs";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import { useAppContext } from "hooks/useAppContext";
 
 const KeyboardMessage: GetProps<any> = ({ shortId }) => {
@@ -51,9 +51,7 @@ const KeyboardMessage: GetProps<any> = ({ shortId }) => {
                   placeholder="Annoucement message"
                   name="message"
                 />
-                <Button primary="true" type="submit">
-                  Post announcement
-                </Button>
+                <Button type="submit">Post announcement</Button>
               </form>
             )}
           </Formik>

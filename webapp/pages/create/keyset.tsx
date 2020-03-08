@@ -7,11 +7,12 @@ import { useMakeKeysetMutation, KeysetInput } from "generated/graphql";
 import Layout from "components/layouts/Layout";
 import Upload from "components/shared/Upload";
 import UploadPreview from "components/shared/UploadPreview";
+import { Button } from "components/styled/Button";
 
 import { Formik, FieldArray } from "formik";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
-import { Button, DeleteButton } from "styles/buttons";
+import { DeleteButton } from "styles/buttons";
 import { margins, borderBox, grid50, grid33, colors, flex } from "styles/main";
 import { text } from "styles/text";
 

@@ -4,9 +4,10 @@ import Layout from "components/layouts/Layout";
 import css from "@emotion/css";
 import { FormikInput, FormikArea } from "styles/inputs";
 import { flex, borderBox, grid50, grid33, margins, colors } from "styles/main";
-import { Button, DeleteButton } from "styles/buttons";
+import { DeleteButton } from "styles/buttons";
 import { text } from "styles/text";
 
+import { Button } from "components/styled/Button";
 import Upload from "components/shared/Upload";
 import UploadPreview from "components/shared/UploadPreview";
 import { useMakeKeyboardMutation, KeyboardInput } from "generated/graphql";

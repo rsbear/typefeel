@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { css } from "@emotion/core";
 import { colors, flex } from "styles/main";
 import Link from "next/link";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import { fontSize } from "styles/text";
 
 const KeyboardProjectTile: FC<any> = ({ keyboard }) => {
@@ -22,7 +22,7 @@ const KeyboardProjectTile: FC<any> = ({ keyboard }) => {
       <div css={[flex.row, buttonsContainer]}>
         <Link href="/keyboard/[shortId]" as={`/keyboard/${keyboard.shortId}`}>
           <a>
-            <Button small="true" type="button" margin="0 8px 0 0">
+            <Button size="small" type="button" margin="0 8px 0 0">
               Visit
             </Button>
           </a>
