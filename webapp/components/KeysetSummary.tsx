@@ -12,7 +12,7 @@ interface Props {
   name: string;
   profile: string;
   stem: string;
-  kitsAvailable: number;
+  kitsAvailable?: number;
   bannerImg: string;
   colors?: any;
 }

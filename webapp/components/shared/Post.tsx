@@ -52,7 +52,7 @@ const Post: FC<Props> = ({ body, username, created }) => {
 export default Post;
 
 const item = css`
-  padding: 20px 10px;
+  padding: 30px 10px;
   border-bottom: solid 1px ${colors.black10};
 
   .userContainer {

@@ -3,7 +3,8 @@ import Layout from "components/layouts/Layout";
 import {
   useKeysetQuery,
   useCreatePostMutation,
-  useKeysetPostsQuery
+  useKeysetPostsQuery,
+  useKeysetDataQuery
 } from "generated/graphql";
 import { GetProps } from "interfaces/GetProps";
 
@@ -11,29 +12,16 @@ import css from "@emotion/css";
 import { flex, colors } from "styles/main";
 import PostBox from "components/shared/PostBox";
 import { ReplyBox } from "styles/inputs";
-import { Button } from "styles/buttons";
 import { useAppContext } from "hooks/useAppContext";
+import KeysetSummary from "components/KeysetSummary";
+import PostList from "components/shared/PostList";
 
 const KeysetDiscussion: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
   const [body, setBody] = useState("");
-  const { loading, error, data, refetch } = useKeysetPostsQuery({
+  const { loading, error, data, refetch } = useKeysetDataQuery({
     variables: { shortId }
   });
-  const [createPost] = useCreatePostMutation();
-
-  const handleCreatePost = async (e: any) => {
-    e.preventDefault();
-    try {
-      let response = await createPost({
-        variables: { id: data.keyset.id, body }
-      });
-      console.log(response);
-      refetch();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const dynamicNav = {
     name: !loading ? data.keyset.profile + " " + data.keyset.name : "",
@@ -42,37 +30,25 @@ const KeysetDiscussion: GetProps<any> = ({ shortId }) => {
   };
 
   return (
-    <Layout title="Discussion" authUser={authUser} dynamicNav={dynamicNav}>
+    <Layout title="Discussion" dynamicNav={dynamicNav}>
       {loading && <h2>Loading...</h2>}
       {!loading && !error && data && (
-        <div css={flex.row}>
-          <div css={infoLeft}>
-            <h1>{data.keyset.name}</h1>
-            <div css={flex.column}>
-              {data.keyset.images600.map((p: string, i: number) => (
-                <img src={p} alt="" css={pic} key={i} />
-              ))}
-            </div>
-          </div>
-          <div css={postsContainer}>
-            {!data.keyset.posts
-              ? "no posts yet"
-              : data.keyset.posts.map((p: any) => (
-                  <PostBox
-                    created={p.created}
-                    content={p.body}
-                    username={p.user.username}
-                    key={p.id}
-                  />
-                ))}
-            <ReplyBox
-              placeholder="Reply"
-              onChange={e => setBody(e.target.value)}
-            ></ReplyBox>
-            <Button primary="true" onClick={e => handleCreatePost(e)}>
-              Submit reply
-            </Button>
-          </div>
+        <div>
+          <KeysetSummary
+            id={data.keyset.id}
+            name={data.keyset.name}
+            profile={data.keyset.profile}
+            stem={data.keyset.stem}
+            bannerImg={data.keyset.images1500[0]}
+            colors={data.keyset.colors}
+
+            // followerCount={data.keyboard.follows.length}
+          />
+          <PostList
+            id={data.keyset.id}
+            posts={data.keyset.posts}
+            refresh={refetch}
+          />
         </div>
       )}
     </Layout>
