@@ -53,7 +53,7 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
     if (authUser) {
       for (let j of authUser.keyboardjoins) {
         if (j.keyboardId === id) {
-          setJoined(true);
+          setJoined(false);
         }
       }
     }

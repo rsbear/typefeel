@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
 import { useKeyboardQuery } from "generated/graphql";
-
 import css from "@emotion/css";
 import { text, fontSize } from "styles/text";
 import { colors, grid50, margins } from "styles/main";
@@ -48,6 +47,7 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
             pcb={data.keyboard.pcb}
             firmware={data.keyboard.firmware}
             bannerImg={data.keyboard.images1500[0]}
+            followerCount={data.keyboard.follows.length}
           />
           {data.keyboard.interestCheck && (
             <KeyboardInterestCheck

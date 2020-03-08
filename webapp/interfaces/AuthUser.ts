@@ -4,4 +4,5 @@ export interface AuthUser {
   keyboardjoins: any;
   keysetjoins: any;
   follows: any;
+  votes: any;
 }

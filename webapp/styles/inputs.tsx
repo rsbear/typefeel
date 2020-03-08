@@ -5,7 +5,7 @@ import { Field } from "formik";
 
 export const inputBox = css`
   position: relative;
-  height: 36px;
+  height: 40px;
   border: solid 1px ${colors.black20};
   border-radius: 4px;
   display: flex;

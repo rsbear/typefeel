@@ -1,7 +1,10 @@
-import React, { FC } from "react";
-import { PostInterface } from "interfaces/PostInterface";
+import React, { FC, useEffect, useState } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import { css } from "@emotion/core";
 import { flex, colors } from "styles/main";
+import { fontSize } from "styles/text";
 
 interface Props {
   id: string;
@@ -11,10 +14,32 @@ interface Props {
 }
 
 const Post: FC<Props> = ({ body, username, created }) => {
+  const [formatted, setFormatted] = useState("");
+  dayjs.extend(relativeTime);
+
+  useEffect(() => {
+    const fromTime = dayjs(created).fromNow(true);
+    const splitTime = fromTime.split(" ");
+    let abb = "";
+    if (splitTime[1] === "minutes") {
+      abb = "m";
+      setFormatted(splitTime[0] + abb);
+    } else if (splitTime[1] === "hours") {
+      abb = "h";
+      setFormatted(splitTime[0] + abb);
+    } else if (splitTime[1] === "days") {
+      abb = "d";
+      setFormatted(splitTime[0] + abb);
+    } else {
+      setFormatted(fromTime);
+    }
+  }, []);
+
   return (
     <li css={[flex.row, item]}>
-      <div className="userContainer">
+      <div className="userContainer" css={flex.column}>
         <h5>{username}</h5>
+        <p css={timeText}>{formatted}</p>
         {/* <p>{created}</p> */}
       </div>
       <div className="body">
@@ -41,4 +66,7 @@ const item = css`
 
 const bodyText = css`
   font-size: 14px;
+`;
+const timeText = css`
+  font-size: ${fontSize[11]};
 `;

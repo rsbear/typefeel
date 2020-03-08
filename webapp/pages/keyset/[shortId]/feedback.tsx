@@ -89,13 +89,14 @@ const KeysetFeedback: GetProps<any> = ({ shortId }) => {
           <div css={[flex.row, flex.space, postsAndGraphsWrapper]}>
             <div css={postsWrapper}>
               <h2>Discussion</h2>
+              {!data.keyset.posts.length && <h3>Start the conversation.</h3>}
               <ul>
-                {data.keyset.posts.slice(0, limit).map((p: PostInterface) => (
+                {data.keyset.posts.slice(0, limit).map((p: any) => (
                   <Post
                     key={p.id}
                     id={p.id}
                     body={p.body}
-                    created={p.created}
+                    created={p.createdAt}
                     username={p.user.username}
                   />
                 ))}

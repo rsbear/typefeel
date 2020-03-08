@@ -7,6 +7,7 @@ import css from "@emotion/css";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
 import { fontSize } from "styles/text";
+import { Button } from "../styled/Button";
 
 interface Props {
   id: string;
@@ -68,12 +69,9 @@ const FollowButton: FC<Props> = ({ id }) => {
       </a>
     </Link>
   ) : (
-    <button
-      css={!following ? followButton : [followButton, followingButton]}
-      onClick={handleFollow}
-    >
+    <Button kind="cta" onClick={handleFollow}>
       {!following ? "Follow" : "Following"}
-    </button>
+    </Button>
   );
 };
 

@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { css } from "@emotion/core";
-import { FormikInput } from "styles/inputs";
-import { Button } from "styles/buttons";
+import { FormikInput, Input } from "styles/inputs";
+import { Button } from "components/styled/Button";
 import Link from "next/link";
 import { setAccessToken } from "lib/accessToken";
 import Header from "components/layouts/Header";
@@ -18,21 +18,31 @@ import redirect from "lib/redirect";
 import { LoadingBar } from "components/shared/LoadingBar";
 
 const Login: FC<any> = () => {
-  const [stateEmail, setEmail] = useState("");
-  const [confirm, setConfirm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [confirm, setConfirm] = useState(true);
   const [error, setError] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const [generateAuth] = useGenerateAuthMutation();
   const [login, { client }] = useLoginMutation();
 
-  async function handleGenerateAuth(e: any, { email }) {
-    e.preventDefault();
+  useEffect(() => {
+    const splitEmail = email.split("");
+    if (splitEmail.includes("@")) {
+      console.log("yes");
+      setValidEmail(true);
+    } else {
+      console.log("not");
+      setValidEmail(false);
+    }
+  }, [email]);
+
+  async function handleGenerateAuth() {
+    event.preventDefault();
     setIsLoading(true);
     try {
       let res = await generateAuth({ variables: { email } });
-
       if (res && !res.data.generateAuth) {
         setError(`${email} is invalid.`);
         setConfirm(false);
@@ -55,7 +65,7 @@ const Login: FC<any> = () => {
     try {
       const res = await login({
         variables: {
-          email: stateEmail,
+          email,
           secret
         }
         // update: (store, { data }) => {
@@ -93,23 +103,25 @@ const Login: FC<any> = () => {
         <h3>typefeel</h3>
         <h1>Log in</h1>
         <p css={errorText}>{!error ? "" : error}</p>
-        <Formik initialValues={{ email: "" }} onSubmit={() => {}}>
-          {({ values }) => (
-            <form onSubmit={e => handleGenerateAuth(e, values)}>
-              <FormikInput
-                type="email"
-                margins="30px 0"
-                icon="icon ion-ios-mail"
-                placeholder="email@email.com"
-                value={values.email || ""}
-                name="email"
-              />
-              <Button primary="true" type="submit" margin="0 0 60px 0">
-                Generate token
-              </Button>
-            </form>
+        <form onSubmit={handleGenerateAuth}>
+          <Input
+            type="email"
+            margins="30px 0"
+            icon="icon ion-ios-mail"
+            placeholder="email@email.com"
+            onChange={e => setEmail(e.target.value)}
+            name="email"
+          />
+          {!validEmail ? (
+            <Button w="100%" margin="0 0 120px 0" type="submit" disabled>
+              Generate token
+            </Button>
+          ) : (
+            <Button w="100%" margin="0 0 120px 0" type="submit">
+              Generate token
+            </Button>
           )}
-        </Formik>
+        </form>
         <Link href="signup">
           <a>Need an account? Sign up</a>
         </Link>
@@ -134,7 +146,7 @@ const Login: FC<any> = () => {
               value={values.secret || ""}
               name="secret"
             />
-            <Button type="submit" primary="true">
+            <Button w="100%" margin="0 0 60px 0" type="submit">
               {!isLoading ? "Log in" : <LoadingBar />}
             </Button>
           </form>
@@ -161,7 +173,7 @@ const loginWrapper = css`
   }
 
   h1 {
-    margin: 40px 0;
+    margin: 20px 0 30px 0;
   }
 `;
 

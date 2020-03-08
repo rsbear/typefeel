@@ -35,6 +35,7 @@ query KeysetData($shortId: String!) {
     posts {
       id
       created
+      createdAt
       body
       user {
         id

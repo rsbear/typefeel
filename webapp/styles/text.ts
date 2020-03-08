@@ -37,10 +37,6 @@ export const f1 = css`
   color: ${colors.black70};
 `
 
-export const textSize = css`
-  font-size: {}
-`
-
 export const text = {
   line: line,
   heading: f1,

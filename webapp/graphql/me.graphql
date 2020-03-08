@@ -15,5 +15,12 @@ query Me {
       id
       productId
     }
+    votes {
+      id
+      editionId
+      kitId
+      expiration
+      created
+    }
   }
 }

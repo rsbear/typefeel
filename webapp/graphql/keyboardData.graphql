@@ -7,6 +7,9 @@ query KeyboardData($shortId: String!) {
     mount
     pcb
     firmware
+    follows {
+      id
+    }
     editions {
       id
       name
@@ -26,6 +29,7 @@ query KeyboardData($shortId: String!) {
       layoutChoice
       plateChoice
     }
+    layouts
     name
     shortId
     size
@@ -33,6 +37,7 @@ query KeyboardData($shortId: String!) {
       id
       body
       created
+      createdAt
       user {
         username
       }

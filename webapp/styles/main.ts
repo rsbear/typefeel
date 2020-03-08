@@ -69,6 +69,16 @@ export const flex = {
   itemscenter,
 }
 
+export const margin = m => css`
+  margin: ${m};
+`
+export const width = w => css`
+  width: ${w}
+`
+export const height = h => css`
+  height: ${h}
+`
+
 export const margins = (margins: string) => css`
   margin: ${margins};
 `

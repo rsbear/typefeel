@@ -136,6 +136,7 @@ export type Keyboard = {
   closed?: Maybe<Scalars['Boolean']>,
   joins?: Maybe<Array<JoinKeyboard>>,
   posts?: Maybe<Array<Post>>,
+  follows?: Maybe<Array<Follow>>,
 };
 
 export type KeyboardInput = {
@@ -243,6 +244,7 @@ export type Mutation = {
   deleteKeyset: Scalars['Boolean'],
   deleteKit: Scalars['Boolean'],
   deleteEdition: Scalars['Boolean'],
+  updateEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
   setSuggestedPriceNull: Scalars['Boolean'],
   voteKeyboardDown: Scalars['Boolean'],
@@ -360,6 +362,12 @@ export type MutationDeleteEditionArgs = {
 };
 
 
+export type MutationUpdateEditionArgs = {
+  price: Scalars['Float'],
+  id: Scalars['String']
+};
+
+
 export type MutationVoteKeyboardUpArgs = {
   id: Scalars['String']
 };
@@ -443,6 +451,7 @@ export type Post = {
   id: Scalars['String'],
   body: Scalars['String'],
   created: Scalars['DateTime'],
+  createdAt?: Maybe<Scalars['String']>,
   user: User,
 };
 
@@ -634,6 +643,9 @@ export type KeyboardQuery = (
     & { editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
+    )>>, follows: Maybe<Array<(
+      { __typename?: 'Follow' }
+      & Pick<Follow, 'id'>
     )>>, posts: Maybe<Array<(
       { __typename?: 'Post' }
       & Pick<Post, 'id' | 'body'>
@@ -661,8 +673,11 @@ export type KeyboardDataQuery = (
   { __typename?: 'Query' }
   & { keyboard: (
     { __typename?: 'Keyboard' }
-    & Pick<Keyboard, 'closed' | 'angle' | 'connector' | 'brand' | 'mount' | 'pcb' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'name' | 'shortId' | 'size'>
-    & { editions: Maybe<Array<(
+    & Pick<Keyboard, 'closed' | 'angle' | 'connector' | 'brand' | 'mount' | 'pcb' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'layouts' | 'name' | 'shortId' | 'size'>
+    & { follows: Maybe<Array<(
+      { __typename?: 'Follow' }
+      & Pick<Follow, 'id'>
+    )>>, editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
     )>>, joins: Maybe<Array<(
@@ -670,7 +685,7 @@ export type KeyboardDataQuery = (
       & Pick<JoinKeyboard, 'id' | 'caseChoice' | 'layoutChoice' | 'plateChoice'>
     )>>, posts: Maybe<Array<(
       { __typename?: 'Post' }
-      & Pick<Post, 'id' | 'body' | 'created'>
+      & Pick<Post, 'id' | 'body' | 'created' | 'createdAt'>
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'username'>
@@ -761,7 +776,7 @@ export type KeysetDataQuery = (
       & Pick<User, 'username'>
     )>, posts: Maybe<Array<(
       { __typename?: 'Post' }
-      & Pick<Post, 'id' | 'created' | 'body'>
+      & Pick<Post, 'id' | 'created' | 'createdAt' | 'body'>
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'id' | 'username'>
@@ -873,6 +888,9 @@ export type MeQuery = (
     )>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id' | 'productId'>
+    )>, votes: Array<(
+      { __typename?: 'Vote' }
+      & Pick<Vote, 'id' | 'editionId' | 'kitId' | 'expiration' | 'created'>
     )> }
   )> }
 );
@@ -1318,6 +1336,9 @@ export const KeyboardDocument = gql`
     }
     details
     firmware
+    follows {
+      id
+    }
     groupBuy
     groupBuySoon
     id
@@ -1405,6 +1426,9 @@ export const KeyboardDataDocument = gql`
     mount
     pcb
     firmware
+    follows {
+      id
+    }
     editions {
       id
       name
@@ -1424,6 +1448,7 @@ export const KeyboardDataDocument = gql`
       layoutChoice
       plateChoice
     }
+    layouts
     name
     shortId
     size
@@ -1431,6 +1456,7 @@ export const KeyboardDataDocument = gql`
       id
       body
       created
+      createdAt
       user {
         username
       }
@@ -1647,6 +1673,7 @@ export const KeysetDataDocument = gql`
     posts {
       id
       created
+      createdAt
       body
       user {
         id
@@ -1913,6 +1940,13 @@ export const MeDocument = gql`
     follows {
       id
       productId
+    }
+    votes {
+      id
+      editionId
+      kitId
+      expiration
+      created
     }
   }
 }

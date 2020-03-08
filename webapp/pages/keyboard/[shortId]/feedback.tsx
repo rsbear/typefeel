@@ -17,7 +17,7 @@ import { css } from "@emotion/core";
 import { ReplyBox } from "styles/inputs";
 import { fontSize } from "styles/text";
 import { flex, colors } from "styles/main";
-import { Button } from "styles/buttons";
+import { Button } from "components/styled/Button";
 import { LoadingBar } from "components/shared/LoadingBar";
 
 const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
@@ -132,7 +132,7 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                     key={p.id}
                     id={p.id}
                     body={p.body}
-                    created={p.created}
+                    created={p.createdAt}
                     username={p.user.username}
                   />
                 ))}
@@ -166,13 +166,14 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                   </Link>
                 ) : (
                   <div css={btnContainer}>
-                    <button
-                      css={[btnOverride]}
+                    <Button
+                      kind="cta"
+                      margin="15px 0 0 0"
                       type="button"
                       onClick={handleCreatePost}
                     >
                       Submit reply
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>

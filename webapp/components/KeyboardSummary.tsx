@@ -15,6 +15,7 @@ interface Props {
   pcb: string;
   firmware: string;
   bannerImg: string;
+  followerCount?: number;
 }
 
 const KeyboardSummary: FC<Props> = ({
@@ -27,7 +28,8 @@ const KeyboardSummary: FC<Props> = ({
   connector,
   pcb,
   firmware,
-  bannerImg
+  bannerImg,
+  followerCount
 }) => {
   return (
     <div css={[flex.row, flex.space, marginTop]}>
@@ -64,11 +66,11 @@ const KeyboardSummary: FC<Props> = ({
             <span className="light">firmware</span>
           </li>
         </ul>
-        <div css={[flex.row, buttonContainer]}>
+        <div css={[flex.row, flex.itemscenter, buttonContainer]}>
           <FollowButton id={id} />
-          <button css={imageButton} type="button">
-            <i className="icon ion-ios-image" />
-          </button>
+          <i css={heartIcon} className="icon ion-ios-heart" />
+          {/* <span css={apostrophe}>'s</span> */}
+          <span css={followCountStyle}>({JSON.stringify(followerCount)})</span>
         </div>
       </div>
       <div className="titleimg">
@@ -124,19 +126,10 @@ const buttonContainer = css`
   margin-top: 20px;
 `;
 
-const imageButton = css`
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: solid 1px #f49b0b;
-  background-color: #f49b0b;
-
-  color: white;
-  font-weight: 600;
-
-  i {
-    font-size: ${fontSize[18]};
-  }
+const heartIcon = css`
+  margin-left: 20px;
+  color: pink;
+  font-size: ${fontSize[24]};
 `;
 
 const bannerStyle = css`
@@ -145,4 +138,18 @@ const bannerStyle = css`
   object-fit: cover;
   object-position: center;
   border-radius: 6px;
+`;
+
+const apostrophe = css`
+  font-weight: 500;
+  font-size: ${fontSize[12]};
+  color: ${colors.black60};
+`;
+
+const followCountStyle = css`
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: ${fontSize[12]};
+  letter-spacing: 1px;
+  color: ${colors.black60};
 `;
