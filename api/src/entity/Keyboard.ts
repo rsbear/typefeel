@@ -142,6 +142,7 @@ export class Keyboard extends BaseEntity {
   @OneToMany(() => Post, post => post.keyboard, { onDelete: "CASCADE" })
   posts: Post[]
 
+  @Field(() => [Follow])
   @OneToMany(() => Follow, follow => follow.keyboard)
   follows: Follow
 }

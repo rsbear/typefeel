@@ -20,4 +20,20 @@ export class EditionResolvers {
       return false
     }
   }
+
+  @Mutation(() => Boolean)
+  async updateEdition(
+    @Arg("id") id: string,
+    @Arg("price") price: number
+  ) {
+    try {
+      await Edition.update({ id }, {
+        price
+      })
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  }
 }

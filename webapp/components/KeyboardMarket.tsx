@@ -116,20 +116,22 @@ const KeyboardMarket: FC<Props> = ({ editions, refresh }) => {
   return (
     <div css={[wrapper]}>
       <div css={[container]}>
-        <h3 css={choiceTitle}>Shame on flippers</h3>
         {/* editions switcher */}
-        <Container flex="row">
-          {editions.length > 1 &&
-            editions.map((ed: Edition, idx: number) => (
-              <h3
-                className={index !== idx ? null : "active"}
-                css={editionTitle}
-                onClick={() => setIndex(idx)}
-                key={ed.id}
-              >
-                {ed.name} edition
-              </h3>
-            ))}
+        <Container flex="row" xpos="space">
+          <h3 css={choiceTitle}>Shame on flippers</h3>
+          <div css={flex.row}>
+            {editions.length > 1 &&
+              editions.map((ed: Edition, idx: number) => (
+                <h3
+                  className={index !== idx ? null : "active"}
+                  css={editionTitle}
+                  onClick={() => setIndex(idx)}
+                  key={ed.id}
+                >
+                  {ed.name} edition
+                </h3>
+              ))}
+          </div>
         </Container>
 
         <div css={[grid]}>
@@ -159,13 +161,16 @@ const KeyboardMarket: FC<Props> = ({ editions, refresh }) => {
                 margin="0 5px"
                 w="40%"
                 onClick={handleUp}
-                type="button"
-              >
-                Vote up
-              </Button>
-              <Button w="40%" margin="0 5px" onClick={handleDown} type="button">
-                Vote down
-              </Button>
+                role="button"
+                value="Vote up"
+              />
+              <Button
+                w="40%"
+                margin="0 5px"
+                onClick={handleDown}
+                role="button"
+                value="Vote down"
+              />
             </>
           ) : (
             <>
@@ -225,17 +230,14 @@ const container = css`
 
 const choiceTitle = css`
   /* margin-bottom: 30px; */
-  margin-top: 30px;
   font-size: ${fontSize[24]};
   font-weight: 600;
   color: ${colors.black60};
 `;
 
 const editionTitle = css`
-  padding: 8px 0;
-  margin: 0 20px;
-  margin-bottom: 60px;
-  font-size: ${fontSize[24]};
+  margin-right: 20px;
+  font-size: ${fontSize[18]};
   font-weight: 400;
   color: ${colors.black60};
 

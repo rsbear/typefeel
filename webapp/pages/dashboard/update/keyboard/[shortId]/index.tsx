@@ -199,9 +199,12 @@ const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
                               name={`details.${i}`}
                             />
                           ))}
-                          <Button small="true" onClick={() => push("")}>
-                            Add another
-                          </Button>
+                          <Button
+                            size="small"
+                            onClick={() => push("")}
+                            role="button"
+                            value="Add another"
+                          />
                         </>
                       )}
                     />
@@ -251,11 +254,11 @@ const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
                                         )
                                       )}
                                       <Button
-                                        small="true"
+                                        size="small"
                                         onClick={() => push("")}
-                                      >
-                                        Add another
-                                      </Button>
+                                        role="button"
+                                        value="Add another"
+                                      />
                                     </>
                                   )}
                                 />
@@ -280,11 +283,11 @@ const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
                                         )
                                       )}
                                       <Button
-                                        small="true"
+                                        size="small"
                                         onClick={() => push("")}
-                                      >
-                                        Add another
-                                      </Button>
+                                        role="button"
+                                        value="Add another"
+                                      />
                                     </>
                                   )}
                                 />
@@ -296,7 +299,7 @@ const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
                     </div>
                   )}
                 />
-                <Button type="submit">Post update</Button>
+                <Button size="large" role="submit" value="Post update" />
               </form>
             )}
           </Formik>

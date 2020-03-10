@@ -5,6 +5,7 @@ import { Keyboard } from "../entity/Keyboard";
 import { Keyset } from "../entity/Keyset";
 import { User } from "../entity/User";
 import { Post } from '../entity/Post'
+import dayjs from 'dayjs'
 
 @Resolver()
 export class PostResolver {
@@ -32,6 +33,7 @@ export class PostResolver {
         await Post.insert({
           body,
           keyboard,
+          createdAt: dayjs(new Date).toString(),
           user
         })
       }
@@ -41,6 +43,7 @@ export class PostResolver {
         await Post.insert({
           body,
           keyset,
+          createdAt: dayjs(new Date).toString(),
           user
         })
       }

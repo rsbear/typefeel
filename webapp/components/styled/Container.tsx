@@ -5,13 +5,25 @@ import { colors } from "styles/main";
 import { fontSize } from "styles/text";
 import { Button } from "components/styled/Button";
 
-const Container = props => (
+interface Props {
+  flex?: "column" | "row" | "rowwrap";
+  xpos?: "space" | "center" | "start" | "end";
+  ypos?: "center" | "start" | "end";
+  margin?: string;
+  padding?: string;
+  w?: string;
+  h?: string;
+  children?: any;
+}
+
+const Container = (props: Props) => (
   <div
     css={[
       props.flex === "column" && column,
       props.flex === "row" && row,
       props.flex === "rowwrap" && rowwrap,
       //rows
+      props.flex === "row" && props.xpos === "space" && space,
       props.flex === "row" && props.xpos === "center" && justifycenter,
       props.flex === "row" && props.xpos === "start" && justifystart,
       props.flex === "row" && props.xpos === "end" && justifyend,
@@ -28,8 +40,7 @@ const Container = props => (
       props.margin && margin(props.margin),
       props.padding && padding(props.padding),
       props.w && width(props.w),
-      props.h && height(props.h),
-      props.hundo && hundo
+      props.h && height(props.h)
     ]}
   >
     {props.children}
@@ -52,6 +63,9 @@ const rowwrap = css`
   display: flex;
   flex-flow: row wrap;
 `;
+const space = css`
+  justify-content: space-between;
+`;
 const justifycenter = css`
   justify-content: center;
 `;
@@ -69,9 +83,6 @@ const alignstart = css`
 `;
 const alignend = css`
   align-items: flex-end;
-`;
-const hundo = css`
-  width: 100%;
 `;
 
 const margin = m => css`

@@ -5,8 +5,6 @@ import { useKeyboardQuery } from "generated/graphql";
 import css from "@emotion/css";
 import { text, fontSize } from "styles/text";
 import { colors, grid50, margins } from "styles/main";
-import MarketKeyboard from "components/__deprecated/MarketKeyboard";
-import InterestCheckKeyboard from "components/__deprecated/InterestCheckKeyboard";
 import { useAppContext } from "hooks/useAppContext";
 import KeyboardSummary from "components/KeyboardSummary";
 import KeyboardInterestCheck from "components/KeyboardInterestCheck";

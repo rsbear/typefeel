@@ -22,9 +22,12 @@ const KeysetProjectTile: FC<any> = ({ keyset }) => {
       <div css={[flex.row, buttonsContainer]}>
         <Link href="/keyset/[shortId]" as={`/keyset/${keyset.shortId}`}>
           <a>
-            <Button small="true" type="button" margin="0 8px 0 0">
-              Visit
-            </Button>
+            <Button
+              size="small"
+              role="button"
+              margin="0 8px 0 0"
+              value="Visit"
+            />
           </a>
         </Link>
         <Link
@@ -32,9 +35,12 @@ const KeysetProjectTile: FC<any> = ({ keyset }) => {
           as={`/dashboard/update/keyset/${keyset.shortId}`}
         >
           <a>
-            <Button small="true" type="button" margin="0 8px 0 0">
-              Update
-            </Button>
+            <Button
+              size="small"
+              role="button"
+              margin="0 8px 0 0"
+              value="Update"
+            />
           </a>
         </Link>
       </div>

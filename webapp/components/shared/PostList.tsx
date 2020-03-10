@@ -76,18 +76,17 @@ const PostList: FC<any> = ({ id, posts, refresh }) => {
           ></ReplyBox>
           {!authUser ? (
             <Link href="/login">
-              <Button type="button">Log in to reply</Button>
+              <Button role="button">Log in to reply</Button>
             </Link>
           ) : (
             <div css={btnContainer}>
               <Button
                 kind="cta"
                 margin="15px 0 0 0"
-                type="button"
+                role="button"
                 onClick={handleCreatePost}
-              >
-                Submit reply
-              </Button>
+                value="Submit reply"
+              />
             </div>
           )}
         </div>

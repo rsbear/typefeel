@@ -20,6 +20,10 @@ export class Post extends BaseEntity {
   @CreateDateColumn()
   created: Date
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  createdAt: string
+
   @ManyToOne(() => Keyboard, keyboard => keyboard.posts, { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn()
   keyboard: Keyboard;

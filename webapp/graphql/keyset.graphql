@@ -9,6 +9,9 @@ query keyset($shortId: String!) {
     details
     id
     images1500
+    follows {
+      id
+    }
     kits {
       id
       kit

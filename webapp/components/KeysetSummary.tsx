@@ -15,6 +15,7 @@ interface Props {
   kitsAvailable?: number;
   bannerImg: string;
   colors?: any;
+  followCount?: any;
 }
 
 const KeysetSummary: FC<Props> = ({
@@ -24,7 +25,8 @@ const KeysetSummary: FC<Props> = ({
   stem,
   kitsAvailable,
   bannerImg,
-  colors
+  colors,
+  followCount
 }) => {
   return (
     <div css={[flex.row, flex.space, mainWrapper]}>
@@ -53,8 +55,11 @@ const KeysetSummary: FC<Props> = ({
         </ul>
         <div css={[flex.row, flex.itemscenter, buttonContainer]}>
           <FollowButton id={id} />
-          {/* <i className="icon ion-ios-heart" css={heartIcon} />
-          <span>12</span> */}
+          <i css={heartIcon} className="icon ion-ios-heart" />
+          {/* <span css={apostrophe}>'s</span> */}
+          <span css={followCountStyle}>
+            ({!followCount ? "0" : JSON.stringify(followCount.length)})
+          </span>
         </div>
       </div>
       <img css={bannerStyle} src={bannerImg} alt={`${name} banner image`} />
@@ -132,6 +137,7 @@ const imageButton = css`
 `;
 
 const heartIcon = css`
+  margin-left: 20px;
   font-size: ${fontSize[24]};
   color: pink;
 `;
@@ -142,4 +148,12 @@ const bannerStyle = css`
   object-fit: cover;
   object-position: center;
   border-radius: 6px;
+`;
+
+const followCountStyle = css`
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: ${fontSize[12]};
+  letter-spacing: 1px;
+  color: ${colors.black60};
 `;

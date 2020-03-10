@@ -94,9 +94,7 @@ const Signup: FC<any> = () => {
               autoFocus
             />
           </div>
-          <Button primary="true" type="submit">
-            Confirm account
-          </Button>
+          <Button role="submit" value="Confirm account" />
         </form>
       </div>
     );
@@ -128,12 +126,11 @@ const Signup: FC<any> = () => {
           />
         </div>
         <Button
-          primary="true"
+          role="button"
           margin="0 0 60px 0"
           onClick={e => handleGenerateAuth(e)}
-        >
-          Sign up
-        </Button>
+          value="Sign up"
+        />
         <Link href="login">
           <a>Already have an account? Log in</a>
         </Link>

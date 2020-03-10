@@ -113,13 +113,20 @@ const Login: FC<any> = () => {
             name="email"
           />
           {!validEmail ? (
-            <Button w="100%" margin="0 0 120px 0" type="submit" disabled>
-              Generate token
-            </Button>
+            <Button
+              w="100%"
+              margin="0 0 120px 0"
+              role="submit"
+              disabled
+              value="Generate token"
+            />
           ) : (
-            <Button w="100%" margin="0 0 120px 0" type="submit">
-              Generate token
-            </Button>
+            <Button
+              w="100%"
+              margin="0 0 120px 0"
+              role="submit"
+              value="Generate token"
+            />
           )}
         </form>
         <Link href="signup">
@@ -146,9 +153,12 @@ const Login: FC<any> = () => {
               value={values.secret || ""}
               name="secret"
             />
-            <Button w="100%" margin="0 0 60px 0" type="submit">
-              {!isLoading ? "Log in" : <LoadingBar />}
-            </Button>
+            <Button
+              w="100%"
+              margin="0 0 60px 0"
+              role="submit"
+              value={!isLoading ? "Log in" : <LoadingBar />}
+            />
           </form>
         )}
       </Formik>

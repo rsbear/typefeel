@@ -1,9 +1,23 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import { css } from "@emotion/core";
 import { colors, margin, width } from "styles/main";
 import { fontSize } from "styles/text";
 
-export const Button = props => {
+interface Props {
+  size?: "mini" | "large" | "small";
+  kind?: "cta" | "err" | "secondary";
+  w?: string;
+  h?: string;
+  margin?: string;
+  children?: any;
+  role?: "button" | "submit";
+  value?: string | any;
+  onClick?: any;
+  disabled?: any;
+  className?: string | any;
+}
+
+export const Button = (props: Props) => {
   return (
     <button
       css={[
@@ -11,15 +25,16 @@ export const Button = props => {
         props.size === "large" && large,
         props.size === "mini" && mini,
         props.size === "small" && small,
-        props.kind === "error" && error,
+        props.kind === "err" && error,
         props.kind === "cta" && cta,
         props.kind === "secondary" && secondary,
         props.w && width(props.w),
         props.margin && margin(props.margin)
       ]}
       {...props}
+      type={props.role}
     >
-      {props.children}
+      {props.value}
     </button>
   );
 };
@@ -55,6 +70,8 @@ const btn = css`
   }
 `;
 const mini = css`
+  padding-left: 12px;
+  padding-right: 12px;
   height: 24px;
 `;
 const small = css`
@@ -67,16 +84,23 @@ const error = css`
   background-color: red;
 `;
 const cta = css`
-  background-color: #60a3d6;
-  border-color: #60a3d6;
+  background-color: #4dddb0;
+  border-color: #4dddb0;
 
   &:hover {
-    color: #60a3d6;
+    color: #4dddb0;
   }
 `;
 const secondary = css`
-  color: black;
   background-color: transparent;
+  border-color: ${colors.black10};
+  color: black;
+  font-size: ${fontSize[12]};
+
+  &:hover {
+    background-color: ${colors.black90};
+    color: white;
+  }
 `;
 const hundo = css`
   width: 100%;

@@ -136,7 +136,7 @@ export type Keyboard = {
   closed?: Maybe<Scalars['Boolean']>,
   joins?: Maybe<Array<JoinKeyboard>>,
   posts?: Maybe<Array<Post>>,
-  follows?: Maybe<Array<Follow>>,
+  follows: Array<Follow>,
 };
 
 export type KeyboardInput = {
@@ -184,11 +184,12 @@ export type Keyset = {
   groupBuy?: Maybe<Scalars['Boolean']>,
   groupBuySoon?: Maybe<Scalars['Boolean']>,
   closed?: Maybe<Scalars['Boolean']>,
+  follows: Follow,
 };
 
 export type KeysetInput = {
   name: Scalars['String'],
-  manufacturer: Scalars['String'],
+  manufacturer?: Maybe<Scalars['String']>,
   profile: Scalars['String'],
   stem: Scalars['String'],
   kits: Array<KitInput>,
@@ -643,10 +644,10 @@ export type KeyboardQuery = (
     & { editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
-    )>>, follows: Maybe<Array<(
+    )>>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id'>
-    )>>, posts: Maybe<Array<(
+    )>, posts: Maybe<Array<(
       { __typename?: 'Post' }
       & Pick<Post, 'id' | 'body'>
     )>> }
@@ -674,10 +675,10 @@ export type KeyboardDataQuery = (
   & { keyboard: (
     { __typename?: 'Keyboard' }
     & Pick<Keyboard, 'closed' | 'angle' | 'connector' | 'brand' | 'mount' | 'pcb' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'layouts' | 'name' | 'shortId' | 'size'>
-    & { follows: Maybe<Array<(
+    & { follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id'>
-    )>>, editions: Maybe<Array<(
+    )>, editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
     )>>, joins: Maybe<Array<(
@@ -739,7 +740,10 @@ export type KeysetQuery = (
     & { colors: Maybe<Array<(
       { __typename?: 'Color' }
       & Pick<Color, 'id' | 'hex' | 'ral'>
-    )>>, kits: Maybe<Array<(
+    )>>, follows: (
+      { __typename?: 'Follow' }
+      & Pick<Follow, 'id'>
+    ), kits: Maybe<Array<(
       { __typename?: 'Kit' }
       & Pick<Kit, 'id' | 'kit' | 'name' | 'price' | 'suggestedPrice'>
     )>>, joins: Maybe<Array<(
@@ -765,7 +769,10 @@ export type KeysetDataQuery = (
     & { colors: Maybe<Array<(
       { __typename?: 'Color' }
       & Pick<Color, 'id' | 'hex' | 'ral'>
-    )>>, kits: Maybe<Array<(
+    )>>, follows: (
+      { __typename?: 'Follow' }
+      & Pick<Follow, 'id'>
+    ), kits: Maybe<Array<(
       { __typename?: 'Kit' }
       & Pick<Kit, 'id' | 'kit' | 'name' | 'price' | 'suggestedPrice'>
     )>>, joins: Maybe<Array<(
@@ -1583,6 +1590,9 @@ export const KeysetDocument = gql`
     details
     id
     images1500
+    follows {
+      id
+    }
     kits {
       id
       kit
@@ -1645,6 +1655,9 @@ export const KeysetDataDocument = gql`
     }
     created
     details
+    follows {
+      id
+    }
     id
     images1500
     kits {

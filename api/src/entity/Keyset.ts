@@ -114,6 +114,7 @@ export class Keyset extends BaseEntity {
   @Column("boolean", { nullable: true })
   closed: boolean
 
+  @Field(() => [Follow], { nullable: true })
   @OneToMany(() => Follow, follow => follow.keyset)
   follows: Follow
 }
@@ -123,7 +124,7 @@ export class KeysetInput implements Partial<Keyset> {
   @Field()
   name: string
 
-  @Field()
+  @Field({ nullable: true })
   manufacturer: string
 
   @Field()

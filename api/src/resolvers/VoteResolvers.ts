@@ -36,17 +36,17 @@ export class VoteResolvers {
 
         if (voteExp.isAfter(nowDate)) {
           console.log(`TOO EARLY`)
-          throw new Error('Voted already, try again in 5 days')
+          throw Error('Voted already, try again in 5 days')
         }
         console.log(`DELETING existing vote`)
         await Vote.delete({ id: vote.id })
       }
 
       // make new vote
-      await Vote.insert({
+      await Vote.create({
         editionId: id,
         user
-      });
+      }).save();
       const newPrice = !edition.suggestedPrice ?
         Math.trunc(edition.price + (edition.price * .03))
         : Math.trunc(edition.suggestedPrice + (edition.suggestedPrice * .03))
@@ -98,7 +98,7 @@ export class VoteResolvers {
 
         if (voteExp.isAfter(nowDate)) {
           console.log(`TOO EARLY`)
-          throw new Error('Voted already, try again in 5 days')
+          throw Error('Voted already, try again in 5 days')
         }
         console.log(`DELETING existing vote`)
         await Vote.delete({ id: vote.id })

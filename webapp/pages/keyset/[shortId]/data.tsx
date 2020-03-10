@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
-import { useKeysetQuery } from "generated/graphql";
-import { object } from "prop-types";
-import { text, fontSize } from "styles/text";
+import { useKeysetDataQuery } from "generated/graphql";
 import css from "@emotion/css";
 import { colors } from "styles/main";
-import PieChart from "components/shared/PieChart";
-import * as d3 from "d3";
-import KeysetChart from "components/KeysetChart";
 import { useAppContext } from "hooks/useAppContext";
+import KeysetSummary from "components/KeysetSummary";
+import BarChart from "components/keyboardcharts/BarChart";
 
 const KeysetData: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
-  const [keysetData, setKeysetData] = useState([]);
-  const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
+  const [joinData, setJoinData] = useState([]);
+  const { loading, error, data } = useKeysetDataQuery({
+    variables: { shortId }
+  });
 
   const dynamicNav = {
     name: !loading ? data.keyset.profile + " " + data.keyset.name : "",
@@ -45,17 +44,13 @@ const KeysetData: GetProps<any> = ({ shortId }) => {
       });
 
       Object.entries(res).forEach(k => {
-        objArr.push({ kitType: k[0], count: k[1] });
+        objArr.push({ name: k[0], count: k[1] });
       });
-      // setPie(generateData())
 
-      setKeysetData(objArr);
+      console.log(objArr);
+      setJoinData(objArr);
     }
   }, [loading]);
-
-  // const changeData = () => {
-  //   setPie(generateData(5, 5));
-  // };
 
   return (
     <Layout title="Keyset data" authUser={authUser} dynamicNav={dynamicNav}>
@@ -63,18 +58,17 @@ const KeysetData: GetProps<any> = ({ shortId }) => {
       {error && <h2>{error.message}</h2>}
       {!loading && !error && data && data.keyset && (
         <div>
-          <h1 css={text.heading}>
-            {data.keyset.profile} {data.keyset.name}
-          </h1>
-          <h2>TOTALS</h2>
-          <ul css={totalsList}>
-            {/* {Object.entries(state).map(([kit, total]: any, idx: number) => (
-              <li key={idx}>
-                {kit} kits {total},&nbsp;
-              </li>
-            ))} */}
-          </ul>
-          <KeysetChart id="keysetchart" kitsData={keysetData} />
+          <KeysetSummary
+            id={data.keyset.id}
+            name={data.keyset.name}
+            profile={data.keyset.profile}
+            stem={data.keyset.stem}
+            kitsAvailable={data.keyset.kits.length}
+            bannerImg={data.keyset.images1500[0]}
+            colors={data.keyset.colors}
+            followCount={data.keyset.follows}
+          />
+          <BarChart data={joinData} id="kitsgrapph" title="Kits" />
         </div>
       )}
     </Layout>

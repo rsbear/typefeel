@@ -67,7 +67,8 @@ export class UserResolvers {
           "keyboardjoins.keyboard",
           "keysetjoins",
           "keysetjoins.keyset",
-          "follows"
+          "follows",
+          "votes"
         ]
       });
     } catch (err) {

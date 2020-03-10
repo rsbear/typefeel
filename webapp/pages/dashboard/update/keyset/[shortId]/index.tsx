@@ -161,12 +161,11 @@ const KeysetUpdate: GetProps<Props> = ({ shortId }) => {
                             </div>
                           ))}
                           <Button
-                            small="true"
-                            type="button"
+                            size="small"
                             onClick={() => push(kit)}
-                          >
-                            Add another kit
-                          </Button>
+                            role="button"
+                            value="Add another kit"
+                          />
                         </div>
                       </>
                     )}
@@ -204,27 +203,25 @@ const KeysetUpdate: GetProps<Props> = ({ shortId }) => {
                               </div>
                             ))}
                             <Button
-                              type="button"
-                              small="true"
+                              size="small"
                               onClick={() => push({ hex: "", ral: "" })}
-                            >
-                              Add a color
-                            </Button>
+                              role="button"
+                              value="Add a color"
+                            />
                           </>
                         ) : (
                           <Button
-                            type="button"
-                            small="true"
+                            size="small"
                             onClick={() => push({ hex: "", ral: "" })}
-                          >
-                            Add a color
-                          </Button>
+                            role="button"
+                            value="Add a color"
+                          />
                         )}
                       </div>
                     )}
                   />
                 )}
-                <Button type="submit">Post update</Button>
+                <Button size="large" role="submit" value="Post update" />
               </form>
             )}
           </Formik>

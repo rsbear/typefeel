@@ -7,6 +7,9 @@ query KeysetData($shortId: String!) {
     }
     created
     details
+    follows {
+      id
+    }
     id
     images1500
     kits {

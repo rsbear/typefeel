@@ -69,9 +69,12 @@ const FollowButton: FC<Props> = ({ id }) => {
       </a>
     </Link>
   ) : (
-    <Button kind="cta" onClick={handleFollow}>
-      {!following ? "Follow" : "Following"}
-    </Button>
+    <Button
+      kind="cta"
+      onClick={handleFollow}
+      role="button"
+      value={!following ? "Follow" : "Following"}
+    />
   );
 };
 

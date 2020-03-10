@@ -23,9 +23,7 @@ const JoinTile: FC<Props> = ({ keyboard }) => {
       <div>
         <Link href="/keyboard/[shortId]" as={`/keyboard/${keyboard.shortId}`}>
           <a>
-            <Button small="true" type="button">
-              Visit
-            </Button>
+            <Button kind="secondary" size="mini" role="button" value="Visit" />
           </a>
         </Link>
       </div>
