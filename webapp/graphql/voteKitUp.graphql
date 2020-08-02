@@ -1,3 +1,0 @@
-mutation VoteKitUp($id: String!) {
-  voteKitUp(id: $id)
-}

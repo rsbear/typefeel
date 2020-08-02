@@ -1,7 +1,0 @@
-query auths {
-  auths {
-    id
-    secret
-    email
-  }
-}

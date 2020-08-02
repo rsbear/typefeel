@@ -1,3 +1,0 @@
-mutation joinKeyset($id: String!, $data: JoinKeysetInput!) {
-  joinKeyset(id: $id, data: $data)
-}

@@ -1,3 +1,0 @@
-mutation generateAuth($email: String!) {
-  generateAuth(email: $email)
-}

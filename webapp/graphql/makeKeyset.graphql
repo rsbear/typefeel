@@ -1,6 +1,0 @@
-mutation makeKeyset($data: KeysetInput!, $images: [Upload!]!) {
-  makeKeyset(data: $data, images: $images) {
-    success
-    message
-  }
-}

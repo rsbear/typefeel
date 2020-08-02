@@ -1,9 +1,0 @@
-query keysets {
-  keysets {
-    id
-    shortId
-    name
-    profile
-    images600
-  }
-}

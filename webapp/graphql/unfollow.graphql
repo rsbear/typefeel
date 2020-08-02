@@ -1,3 +1,0 @@
-mutation Unfollow($id: String!, $productId: String!) {
-  unfollow(id: $id, productId: $productId)
-}

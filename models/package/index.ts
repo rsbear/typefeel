@@ -8,7 +8,6 @@ export async function connector() {
     // entitiesDirs: ["./dist/entities"],
     // entitiesDirsTs: ["./package/entities"],
     type: "postgresql",
-    clientUrl:
-      "postgresql://doadmin:if34j1upg4expczp@type-dev-36-do-user-2011008-0.a.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+    clientUrl: "",
   });
 }

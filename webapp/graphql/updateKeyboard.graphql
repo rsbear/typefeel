@@ -1,3 +1,0 @@
-mutation updateKeyboard($id: String!, $data: KeyboardInput!) {
-  updateKeyboard(id: $id, data: $data)
-}

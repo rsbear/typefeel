@@ -1,6 +1,0 @@
-mutation makeKeyboard($data: KeyboardInput!, $images: [Upload!]!) {
-  makeKeyboard(data: $data, images: $images) {
-    success
-    message
-  }
-}
