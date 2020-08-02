@@ -1,0 +1,23 @@
+{
+  "[prisma]": {
+    "editor.formatOnSave": true
+  },
+  "[graphql]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+}
